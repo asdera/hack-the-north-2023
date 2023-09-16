@@ -3,8 +3,11 @@ import "./App.css";
 import Menu from "./Menu.js";
 import Game from "./Game.js";
 import Login from "./Login.js";
+import Mode from "./Mode.js";
+import Customize from "./Customization.js";
 
 import { useState, useEffect } from "react";
+import MainMenu from "./MainMenu";
 
 function App() {
   const [page, setPage] = useState("menu");
@@ -13,15 +16,30 @@ function App() {
 
   function GetPage() {
     switch (page) {
+      case "login":
+        return <Login DidLogIn={TestLogin} BackToMenu={BackToMenu} />;
+      case "register":
+        return <Register DidRegister={DidRegister} BackToMenu={BackToMenu} />;
       case "menu":
         return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
-
-      case "login":
-        return <Login />;
-
+      case "main":
+        return (
+          <MainMenu
+            LogOut={LogOut}
+            SelectMode={SelectMode}
+            ToCustomize={ToCustomize}
+          />
+        );
       case "game":
-        return <Game />;
-
+        return (
+          <Game game_id={game_id} user_id={user_id} game_mode={game_mode} />
+        );
+      case "mode":
+        return (
+          <Mode setGameMode={setGameMode} backToMainMenu={BackToMainMenu} />
+        );
+      case "customize":
+        return <Customize backToMainMenu={BackToMainMenu} />;
       default:
         throw Error("Unknown page");
     }
@@ -32,10 +50,6 @@ function App() {
       setPage("game");
     }
   }, [game_mode]);
-
-  function BackToMainMenu() {
-    setPage("main");
-  }
 
   useEffect(() => {
     const handleWheel = (e) => e.preventDefault();
@@ -48,15 +62,55 @@ function App() {
     };
   }, []);
 
+  function TestLogin() {
+    // load profile info
+    /*
+    Username
+    Rank Points -> to be converted to rating (i.e Scrubby, Intermediate, Grandmaster, etc)
+    All the profile icons that this user has
+    Amount of Nuggets (currency)
+    */
+    setPage("main");
+
+    // IgnoreWarningForTesting();
+  }
+
+  function LogOut() {
+    setPage("login");
+  }
+
   function ToLogin() {
     setPage("login");
+  }
+
+  function ToCustomize() {
+    setPage("customize");
   }
 
   function ToRegister() {
     setPage("register");
   }
+
+  function SelectMode() {
+    setPage("mode");
+  }
+
   function BackToMenu() {
     setPage("menu");
+  }
+
+  function BackToMainMenu() {
+    setPage("main");
+  }
+
+  function DidRegister(id) {
+    setPage("menu");
+    if (id) {
+      alert("registered user with id: " + id);
+      // TODO: go to the user's home screen
+    } else {
+      // login after registration failed. Tell the user to log in again
+    }
   }
 
   switch (page) {
