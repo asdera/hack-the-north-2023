@@ -14,7 +14,7 @@ import {
 /*
 This is the unlogged in menu
 */
-function Menu() {
+function Menu({ ToLogin, ToRegister }) {
   // the stage we are on, will be set to login / register, once animations finish SetPage will be called
   const [stage, setStage] = useState("menu");
 
@@ -22,6 +22,23 @@ function Menu() {
   const [fadeStatus, setFadeStatus] = useState("enter");
   const [titleStatus, setTitleStatus] = useState("enter");
   const [profileStatus, setProfileStatus] = useState("enter");
+  const [loginButtonStatus, setLoginButtonStatus] = useState("enter");
+  const [registerButtonStatus, setRegisterButtonStatus] = useState("enter");
+
+  useEffect(() => {
+    if (stage === "login" || stage === "register") {
+      setFadeStatus("exit");
+      setTitleStatus("exit");
+      setProfileStatus("exit");
+      setLoginButtonStatus("exit");
+      setRegisterButtonStatus("exit");
+      const exitTimer = setTimeout(() => {
+        if (stage === "login") ToLogin();
+        if (stage === "register") ToRegister();
+        clearTimeout(exitTimer);
+      }, 550);
+    }
+  }, [stage, ToLogin, ToRegister]);
 
   return (
     <motion.div
@@ -70,6 +87,29 @@ function Menu() {
             ></motion.span>
           </div>
         </div>
+      </motion.div>
+
+      <motion.div
+        className="Button"
+        onClick={() => {
+          setStage("login");
+        }}
+        whileHover={{ scale: 1.1 }}
+        initial={leftAnimation["initial"]}
+        animate={leftAnimation[loginButtonStatus]}
+      >
+        LOGIN{" "}
+      </motion.div>
+      <motion.div
+        className="Button"
+        onClick={() => {
+          setStage("register");
+        }}
+        whileHover={{ scale: 1.1 }}
+        initial={rightAnimation["initial"]}
+        animate={rightAnimation[registerButtonStatus]}
+      >
+        REGISTER{" "}
       </motion.div>
     </motion.div>
   );

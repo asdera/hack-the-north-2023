@@ -8,14 +8,14 @@ import { useState, useEffect } from "react";
 import Login from "./Login.js";
 
 function App() {
-  const [page, setPage] = useState("login");
+  const [page, setPage] = useState("menu");
 
   const [game_mode, setGameMode] = useState(-1);
 
   function GetPage() {
     switch (page) {
       case "menu":
-        return <Menu />;
+        return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
 
       case "game":
         return <Game />;
@@ -49,9 +49,20 @@ function App() {
     };
   }, []);
 
+  function ToLogin() {
+    setPage("login");
+  }
+
+  function ToRegister() {
+    setPage("register");
+  }
+  function BackToMenu() {
+    setPage("menu");
+  }
+
   switch (page) {
     case "login":
-      return <Login />;
+      return <Login BackToMenu={BackToMenu} />;
   }
 
   return <div className="App">{GetPage()}</div>;
