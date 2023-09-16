@@ -1,20 +1,16 @@
 import './App.css';
 import {useState, useEffect} from "react";
+import Login from './Login.js';
 
 function App() {
-  const [page, setPage] = useState("menu");
+  const [page, setPage] = useState("login");
 
   function GetPage() {
       switch (page) {
-        // swap page
+        case "login":
+          return <Login />;
       }
   }
-
-  useEffect(() => {
-      if (game_mode !== -1) {
-          setPage('game')
-      }
-  }, [game_mode]);
 
   return (
       <div className = "App">
