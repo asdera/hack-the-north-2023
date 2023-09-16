@@ -5,6 +5,7 @@ import Game from "./Game.js";
 import Login from "./Login.js";
 import Mode from "./Mode.js";
 import Customize from "./Customization.js";
+import Register from "./Register";
 
 import { useState, useEffect } from "react";
 import MainMenu from "./MainMenu";
@@ -31,15 +32,17 @@ function App() {
           />
         );
       case "game":
-        return (
-          <Game game_id={game_id} user_id={user_id} game_mode={game_mode} />
-        );
+        return <Game game_mode={game_mode} />;
       case "mode":
         return (
           <Mode setGameMode={setGameMode} backToMainMenu={BackToMainMenu} />
         );
       case "customize":
         return <Customize backToMainMenu={BackToMainMenu} />;
+
+      case "register":
+        return <Register />;
+
       default:
         throw Error("Unknown page");
     }
@@ -70,6 +73,7 @@ function App() {
     All the profile icons that this user has
     Amount of Nuggets (currency)
     */
+    console.log("HEys");
     setPage("main");
 
     // IgnoreWarningForTesting();
@@ -111,11 +115,6 @@ function App() {
     } else {
       // login after registration failed. Tell the user to log in again
     }
-  }
-
-  switch (page) {
-    case "login":
-      return <Login BackToMenu={BackToMenu} />;
   }
 
   return <div className="App">{GetPage()}</div>;

@@ -28,3 +28,16 @@ export function CoordToPos(x, y) {
         return col + row
     }
 }
+
+// function that returns a point that is distance away from the origin given the angle
+export function getPointAwayFromOrigin(originX, originY, angle, distance) {
+    const angleInRadians = (angle * Math.PI) / 180;
+  
+    const deltaX = Math.cos(angleInRadians) * distance;
+    const deltaY = Math.sin(angleInRadians) * distance;
+  
+    const newX = originX + deltaX;
+    const newY = originY + deltaY;
+  
+    return { x: newX, y: newY };
+}
