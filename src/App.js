@@ -3,6 +3,7 @@ import "./App.css";
 import Menu from "./Menu.js";
 import Game from "./Game.js";
 import Login from "./Login.js";
+import Register from "./Register";
 
 import { useState, useEffect } from "react";
 
@@ -21,6 +22,9 @@ function App() {
 
       case "game":
         return <Game />;
+
+      case "register":
+        return <Register />
 
       default:
         throw Error("Unknown page");
