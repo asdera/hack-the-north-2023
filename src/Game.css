@@ -1,0 +1,244 @@
+
+/* Game Menu */
+/* ========================= */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.Game::-webkit-scrollbar {
+    display: none;
+}
+
+.Game {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: transparent;
+
+    align-items: center;
+    justify-content: center;
+    zoom: 1;
+}
+
+.Inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.TextLarge {
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+.TextMedium {
+    font-size: 3vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+.TextSmall {
+    font-size: 2.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+.TextFiller {
+    height: 100%;
+}
+
+/* Profiles */
+/* ========================= */
+
+.OpponentProfile {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    top: 2.5vh;
+    left: 2.5vh;
+}
+
+.MyProfile {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    bottom: 2.5vh;
+    right: 2.5vh;
+}
+
+.Icon {
+    height: 10vh;
+    border-radius: 5px;
+    border: 1px solid #6B6B6B;
+    box-sizing: border-box;
+}
+
+.OpponentInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: left;
+    margin-left: 1%;
+}
+
+.MyInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: right;
+    margin-right: 1%;
+}
+
+.EndTurn {
+    overflow: hidden;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    width: 40vh;
+    height: 7vh;
+    bottom: 3.5vh;
+    background-color: #CBCBCB;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Chessboard */
+/* ========================= */
+
+.Chessboard {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70vh;
+    height: 70vh;
+    border: 5px solid #CBCBCB;
+    border-radius: 5px;
+    margin-top: 2.5vh;
+    margin-bottom: 2.5vh;
+}
+
+.Cell {
+    width: calc(100% / 8);
+    height: calc(100% / 8);
+    z-index: 0;
+}
+
+.Square {
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.Piece {
+    display: flex;
+    pointer-events: none;
+    position: absolute;
+    width: calc(100% / 8);
+    height: calc(100% / 8);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    will-change: 'transform';
+}
+
+.PieceImage {
+    bottom: 75%;
+    position: relative;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+}
+
+.WeaponIdleImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.ShadowImage {
+    bottom: 75%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.PromotionBoard {
+    position: absolute;
+    left: calc(50% - 35vh - 8.75vh - 25px);
+    top: calc(50% - 35vh - 7.5px);
+    display: flex;
+    flex-direction: column;
+    border: 7.5px solid #CBCBCB;
+    border-radius: 10px;
+}
+
+.PromotionPiece {
+    width: 8.75vh;
+    height: 8.75vh;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Weapon Section */
+/* ========================= */
+
+.EquipmentBoard {
+    position: absolute;
+    overflow: hidden;
+    top: 15vh;
+    right: 2.5vh;
+}
+
+.Equipment {
+    position: relative;
+    width: calc((100vw - 70vh - 20vw) / 2);
+    height: 8.75vh;
+    border-radius: 10px;
+    background-color: #CBCBCB;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.EquipmentVerticle {
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+.EquipEquipment {
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    bottom: 25%
+}
+
+.ShieldImage {
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    width: 200%;
+    height: 200%;
+    bottom: 25%;
+}
