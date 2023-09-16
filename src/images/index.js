@@ -5,7 +5,7 @@ const images = {
     predict: require('./utils/predict.png'),
     pieceShadow: require('./utils/piece_shadow.png'),
 
-    tempGun: require('./icons/temp_gun.png'),
+    defaultIcon: require('./icons/default_icon.png'),
 
     white_king: require('./white_pieces/white_king_default.png'),
     white_queen: require('./white_pieces/white_queen_default.png'),
