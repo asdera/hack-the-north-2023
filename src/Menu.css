@@ -1,0 +1,196 @@
+/* Main Menu */
+/* ========================= */
+
+::selection {
+    background: #c2c2c2; 
+}
+
+.Menu {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.ChessWithGuns {
+    font-size: 7.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    color: #6B6B6B;
+    
+    padding-bottom: 1vh;
+}
+
+.Subtitle {
+    font-size: 2vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+}
+
+.TextLarge {
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+}
+
+.TextSmall {
+    font-size: 2.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+
+    display: inline-block;
+    box-sizing: content-box;
+}
+
+.ActualTextSmall {
+    display: inline-block;
+}
+
+.Username {
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    width: 34vh;
+}
+
+/* Profile */
+/* ========================= */
+
+.Profile {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+    scale: 1.25;
+    align-items: center;
+    justify-content: center;
+    width: 34vh;
+}
+
+.Icon {
+    height: 10vh;
+    border-radius: 5px;
+    border: 1vh solid #6B6B6B;
+    box-sizing: border-box;
+}
+
+.Icon img {
+    display: block;
+    height: 100%;
+}
+
+.Info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: right;
+    margin-left: 1vw;
+}
+
+/* Button Group */
+/* ========================= */
+
+.ButtonGroup {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    width: 50vh;
+    align-items: center;
+    text-decoration: underline;
+    
+    color: #6B6B6B;
+}
+
+.BackButton {
+    position: absolute;
+    bottom: 5vh;
+    left: 5vh;
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+    text-decoration: underline;
+}
+
+.Button {
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    margin-bottom: 2vh;
+    text-decoration: underline;
+
+    color: #6B6B6B;
+}
+
+.SmallButton {
+    font-size: 2.25vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    margin-top: 3.5vh;
+    text-decoration: underline;
+
+    color: #6B6B6B;
+}
+
+.InputField {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding-top: 2vh;
+    color: #6B6B6B;
+
+    border-bottom: 2px solid #6B6B6B; 
+}
+
+.Capcha {
+    transform: scale(0.55);
+}
+
+.TermsLabel {
+    font-size: 2.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    text-decoration: underline;
+    padding-right: 3vh;
+
+    color: #6B6B6B;
+}
+
+.TermsCheckbox {
+    background-color: transparent;
+}
+
+.TermsHolder {
+    display: flex;
+    flex-direction: row;
+    padding-top: 2.5vh;
+    align-items: center;
+}
+
+/* Dropdown */
+/* ========================= */
+
+.LoginDropdown, .RegisterDropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+}
+  
+.LoginDropdown.open, .RegisterDropdown.open {
+    max-height: 200px;
+}

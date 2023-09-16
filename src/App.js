@@ -5,9 +5,10 @@ import Game from "./Game.js";
 import Mode from "./Mode.js";
 
 import { useState, useEffect } from "react";
+import Login from "./Login.js";
 
 function App() {
-  const [page, setPage] = useState("menu");
+  const [page, setPage] = useState("login");
 
   const [game_mode, setGameMode] = useState(-1);
 
@@ -47,6 +48,11 @@ function App() {
       window.removeEventListener("wheel", handleWheel);
     };
   }, []);
+
+  switch (page) {
+    case "login":
+      return <Login />;
+  }
 
   return <div className="App">{GetPage()}</div>;
 }
