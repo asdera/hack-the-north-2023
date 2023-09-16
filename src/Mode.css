@@ -1,0 +1,103 @@
+
+/* Mode Menu */
+/* ========================= */
+body, html {
+    overflow-y: hidden;
+}
+
+.Mode {
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: transparent;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.Title {
+    font-size: 4vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    padding-bottom: 72.5vh;
+    color: #6B6B6B;
+}
+
+.MatchButton {
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    padding-top: 2vh;
+    color: #B0B0B0;
+    text-decoration: underline;
+    
+    align-items: center;
+    justify-content: center;
+}
+
+.TextFiller {
+    height: 100%;
+}
+
+.BackButton {
+    position: absolute;
+    bottom: 5vh;
+    left: 5vh;
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+    text-decoration: underline;
+}
+
+/* Mode Select */
+/* ========================= */
+
+.ModeScroll {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%; /* set the width of the container */
+    height: 60vh;
+    padding-top: 7.5vh;
+    padding-bottom: 5vh;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.Category {
+    flex: 0 0 auto;
+    flex-direction: row;
+    width: 40vh;
+    height: 100%;
+    border-radius: 15px;
+    background-color: #CBCBCB;
+    margin-left: 1.5vh;
+    margin-right: 1.5vh;
+    padding-bottom: 2vh;
+    align-items: center;
+    text-align: center;
+}
+
+.CategoryTitle {
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    padding-top: 5vh;
+    color: #9C9C9C;
+}
+
+.CategoryIcon {
+    width: 80%
+}
+
+.CategoryDescription {
+    font-size: 3vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    padding-top: 5vh;
+    color: #9C9C9C;
+}

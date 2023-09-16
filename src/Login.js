@@ -10,7 +10,7 @@ import {
   rightAnimation,
 } from "./animations";
 
-function Login({ DidLogIn, BackToMenu }) {
+function Login({ auth_engine, DidLogIn, BackToMenu }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
