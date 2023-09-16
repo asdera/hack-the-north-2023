@@ -1,3 +1,5 @@
+// library for all the images
+
 const images = {
     empty: require('./utils/empty.png'),
     predict: require('./utils/predict.png'),
