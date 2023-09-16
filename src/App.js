@@ -6,12 +6,13 @@ import Login from "./Login.js";
 import Mode from "./Mode.js";
 import Customize from "./Customization.js";
 import Register from "./Register.js";
+import Purchase from "./Purchase";
 
 import { useState, useEffect } from "react";
 import MainMenu from "./MainMenu";
 
 function App() {
-  const [page, setPage] = useState("menu");
+  const [page, setPage] = useState("purchase");
 
   const [game_mode, setGameMode] = useState(-1);
 
@@ -31,6 +32,8 @@ function App() {
             ToCustomize={ToCustomize}
           />
         );
+      case "purchase":
+        return <Purchase setPage={setPage} />;
       case "game":
         return <Game game_mode={game_mode} />;
       case "mode":
