@@ -3,7 +3,7 @@ import "./App.css";
 import Menu from "./Menu.js";
 import Game from "./Game.js";
 import Login from "./Login.js";
-import Register from "./Register";
+import Register from "./Register.js";
 
 import { useState, useEffect } from "react";
 
