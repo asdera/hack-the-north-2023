@@ -2,10 +2,9 @@ import "./App.css";
 
 import Menu from "./Menu.js";
 import Game from "./Game.js";
-import Mode from "./Mode.js";
+import Login from "./Login.js";
 
 import { useState, useEffect } from "react";
-import Login from "./Login.js";
 
 function App() {
   const [page, setPage] = useState("menu");
@@ -17,12 +16,12 @@ function App() {
       case "menu":
         return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
 
+      case "login":
+        return <Login />;
+
       case "game":
         return <Game />;
-      case "mode":
-        return (
-          <Mode setGameMode={setGameMode} backToMainMenu={BackToMainMenu} />
-        );
+
       default:
         throw Error("Unknown page");
     }
