@@ -200,24 +200,51 @@
 
 
 .GatchaPage {
-    overflow: hidden;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    background-color: transparent;
-}
-
-
-.BannerOptionPage {
-    overflow: hidden;
+    overflow-y: hidden;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 40%;
-    background-color: black;
+    height: 100vh;
+    background-color: transparent;
 
     align-items: center;
     justify-content: center;
+}
+
+.MallTitle {
+    position: absolute;
+    top: 5vh;
+    font-size: 8vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    padding-bottom: 72.5vh;
+    color: #6B6B6B;
+}
+
+.BannerBackground {
+    position: absolute;
+
+    width: 62.5vw;
+    height: 50vh;
+    top: 20vh;
+    left: 32.5vw;
+
+    background-color: black;
+    border-radius: 10px; 
+}
+
+.BannerOptionPage {
+    position: absolute;
+    top: 20vh;
+    left: 5vh;
+    width: 27.5vw;
+    height: 50vh;
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: top;
 }
 
 .BannerOptionButton {
@@ -230,18 +257,23 @@
     text-decoration: underline;
 
     color: #6B6B6B;
-    border: 2px solid gray;
-    height: 50px;
-    width: 300px;
-    border-radius: 10px; 
+    border: 3px solid gray;
+    height: 10vh;
+    width: 95%;
+    border-radius: 10px;
 }
 
 .GatchaMachinePage {
+    position: absolute;
+
+    left: 70vw;
+    top: 45vh;
+    height: 45vh;
+    width: 40vh;
+
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 60%;
     background-color: white;
 
     align-items: center;
@@ -258,8 +290,6 @@
     text-decoration: underline;
     color: #6B6B6B;
     border: 2px solid grey;
-    height: 50px;
-    width: 100px;
     border-radius: 10px; 
 }
 

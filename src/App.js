@@ -18,7 +18,7 @@ import { useState, useEffect } from "react";
 import MainMenu from "./MainMenu";
 
 function App() {
-  const [page, setPage] = useState("dashboard");
+  const [page, setPage] = useState("login");
 
   const [game_id, setGameId] = useState("");
   const [user_id, setUserId] = useState("");
