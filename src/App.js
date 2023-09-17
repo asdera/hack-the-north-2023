@@ -54,6 +54,7 @@ function App() {
             LogOut={LogOut}
             SelectMode={SelectMode}
             ToCustomize={ToCustomize}
+            ToGatcha={ToGatcha}
           />
         );
       case "purchase":
@@ -125,6 +126,10 @@ function App() {
 
   function ToCustomize() {
     setPage("customize");
+  }
+
+  function ToGatcha() {
+    setPage("gatcha");
   }
 
   function ToRegister() {

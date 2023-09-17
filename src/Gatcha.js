@@ -104,29 +104,23 @@ const BannerType = {
 
 const PRESTIGE_BANNER_COST = 25;
 const NORMAL_BANNER_COST = 20;
-const FIRST_PULL_DISCOUNT = 5;
-
-const RETURN_ON_MAX = 10;
+// const FIRST_PULL_DISCOUNT = 5;
 
 const NUM_PIECES = 5;
 
-const banners = ['Crime City','Crime City'];
-
+const banners = ['Crime City', 'Crime City'];
   
 function Gatcha({ BackToMenu }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
     // component animation fields
-    const [fadeStatus, setFadeStatus] = useState("enter");
-    const [titleStatus, setTitleStatus] = useState("enter");
     const [creditAmount, setCreditAmount] = useState(0);
 
-    const [buttonStatus, setButtonStatus] = useState(0);
     const [banner, setBanner] = useState("")
     const [gatchaBackgroundImage, setGatchaBackgroundImage] = useState("../images/banners/banner1.png");
     const [skinRolled, setSkinRolled] = useState("");
-    const [skinRolledImage, setSkinRolledImage] = useState("");
+
+    useEffect(() => {
+        console.log(skinRolled)
+    }, [skinRolled])
 
     useEffect(() => {
         setCreditAmount(1000);
@@ -137,16 +131,7 @@ function Gatcha({ BackToMenu }) {
     }, [creditAmount]);
 
     useEffect(() => {
-
-        setSkinRolledImage("");
-        
-
-    }, [skinRolled]);
-
-    useEffect(() => {
-
         setGatchaBackgroundImage(".......")
-
     }, [banner]);
 
     function BannerOptions(props) {
@@ -191,42 +176,19 @@ function Gatcha({ BackToMenu }) {
         if (item === "prestige bishop" || item === "normal bishop") type = Pieces.BISHOP;
         if (item === "prestige queen" || item === "normal queen") type = Pieces.QUEEN;
         if (item === "prestige king" || item === "normal king") type = Pieces.KING;
-        // console.log(type + ' ' + grade + ' ' + set);
 
         const skin = Object.keys(chessSkins).find((key) => {
             const temp = chessSkins[key];
             return temp.type === type && temp.set === "Mafia" && temp.grade === grade;
         });
-        console.log(type + ' ' + grade + ' ' + set + " skin: " + skin);
 
         setSkinRolled(skin);
-        // set creadit
-
+        // set credit
     }
-
-  function GatchaMachine() {
-
-
-    // return (     
-        // <motion.div
-        //     className="Gatcha Machine"
-        //     initial={topAnimation["initial"]}
-        //     animate={topAnimation[titleStatus]}
-        //     onClick= {() => {setButtonStatus(props.num)}}
-        // >
-        //     click
-        // </motion.div>
-    // )
-  }
-  
-
 
 
   return (
-    
-    <motion.div
-        className="GatchaPage"
-    >
+    <motion.div className="GatchaPage">
         <motion.div
             className="BannerOptionPage"
         >
@@ -250,15 +212,9 @@ function Gatcha({ BackToMenu }) {
                 >
                     click
                 </motion.div>
-                <GatchaMachine/>
             </motion.div>
         </motion.div>
-        
-    
     </motion.div>
-
-
-        
   );
 }
 
