@@ -18,15 +18,21 @@ import {
   leftAnimation,
   rightAnimation,
 } from "./animations";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+
+import { firestore } from "./CreateFirebaseEngine";
+import { useAuth } from "./AuthContext";
 
 const stripe_test_pk =
   "pk_test_51Nr9sZBANMvuTab7ViyDgluJsDIth8SxDB9Y7Edn4TtJ0tB8NFISOkjMf6cXnWFggadarkXJwd8WMYzVigrvr3Nh00L7TQLkLS";
 const stripe_test_sk =
   "sk_test_51Nr9sZBANMvuTab7To2iJyxL2as30oYGcGcsppHdBVFiaYO8x8Sgpp14ekH2wUZSSqtUSGGIsdGJd7UMtl5MaqGM00XAhRaVt7";
 
-const StripeCheckoutForm = ({ price, BuyCredits }) => {
+const StripeCheckoutForm = ({ amount, price, BuyCredits }) => {
   const stripe = useStripe();
   const elements = useElements();
+
+  const { currentUser, newNuggetCount } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,8 +51,20 @@ const StripeCheckoutForm = ({ price, BuyCredits }) => {
     if (error) {
       console.log("[error]", error);
     } else {
-      // Handle payment here, either by calling your server or something else
+      // Handle payment here:
       console.log("[PaymentMethod]", paymentMethod);
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1400));
+
+    console.log("You have purchased credits", currentUser?.id, amount);
+    if (currentUser?.id) {
+      updateCredits(
+        currentUser.id,
+        currentUser?.nuggetCount,
+        amount || 100,
+        newNuggetCount
+      );
     }
 
     BuyCredits();
@@ -56,7 +74,7 @@ const StripeCheckoutForm = ({ price, BuyCredits }) => {
     <form onSubmit={handleSubmit}>
       <CardElement />
       <button className="pay-button" type="submit" disabled={!stripe}>
-        Confirm Payment
+        Confirm Payment of ${price / 100}
       </button>
     </form>
   );
@@ -114,6 +132,23 @@ async function requestMoney(amount, requesteeId, message, invoiceNumber) {
 }
 
 const stripePromise = loadStripe(stripe_test_pk);
+
+async function updateCredits(
+  userId,
+  currentCredits,
+  newCredits,
+  newNuggetCount
+) {
+  const userRef = doc(firestore, "users", userId);
+
+  console.log(`Updating credits for user ${userId}`, userRef);
+  await updateDoc(userRef, {
+    credits: currentCredits + newCredits,
+  });
+  newNuggetCount && newNuggetCount(currentCredits + newCredits);
+
+  console.log(`Credits updated for user ${userId}`);
+}
 
 function Purchase() {
   // The stage we are on, will be set to buyCredits, once animations finish SetPage will be called
@@ -249,6 +284,7 @@ function Purchase() {
             ></motion.input>
             <Elements stripe={stripePromise}>
               <StripeCheckoutForm
+                amount={credits}
                 price={
                   credits === 50
                     ? 499

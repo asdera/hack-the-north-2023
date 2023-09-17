@@ -35,6 +35,12 @@ export function AuthProvider({ children }) {
     }
   }, [currentId]);
 
+  const newNuggetCount = (nuggetCount) => {
+    if (currentUser) {
+      setCurrentUser({ ...currentUser, nuggetCount });
+    }
+  };
+
   const didLogIn = (userId) => {
     setCurrentId(userId);
     // Additional logic for when a user logs in
@@ -57,6 +63,7 @@ export function AuthProvider({ children }) {
     didLogIn,
     didRegister,
     logOut,
+    newNuggetCount,
     authEngine,
   };
 
