@@ -11,6 +11,9 @@ import {
   leftAnimation,
   rightAnimation,
 } from "./animations";
+import { firestore } from "./CreateFirebaseEngine";
+import { doc, getDoc, updateDoc} from "firebase/firestore";
+import { useAuth } from "./AuthContext";
 
 const dropRates = {
     Prestige: {
@@ -111,6 +114,7 @@ const NUM_PIECES = 5;
 const banners = ['Crime City', 'Crime City'];
   
 function Gatcha({ BackToMenu }) {
+    const user = useAuth();
     // component animation fields
     const [creditAmount, setCreditAmount] = useState(0);
 
@@ -119,15 +123,35 @@ function Gatcha({ BackToMenu }) {
     const [skinRolled, setSkinRolled] = useState("");
 
     useEffect(() => {
-        console.log(skinRolled)
+        // console.log(skinRolled)
     }, [skinRolled])
 
     useEffect(() => {
-        setCreditAmount(1000);
+        const docRef = doc(firestore, "users", user.currentUser);
+        getDoc(docRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const data = docSnap.data();
+              setCreditAmount(data["nuggetCount"]);
+            //   setCreditAmount(110);
+            } else {
+              console.log("No such user!");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting user:", error);
+          });
     }, []);
 
     useEffect(() => {
-
+        const docRef = doc(firestore, "users", user.currentUser);
+        const dataToUpdate = {
+            nuggetCount: creditAmount,
+        };
+        updateDoc(docRef, dataToUpdate)
+        .catch((error) => {
+            console.error("Error updating document: ", error);
+        });
     }, [creditAmount]);
 
     useEffect(() => {
@@ -143,14 +167,16 @@ function Gatcha({ BackToMenu }) {
                     // setButtonStatus(props.num);
                 }}
             >
-                click
+                {props.bannerType}
             </motion.div>
         );
     }
 
 
     function GatchaRoll() {
-        const status = BannerType[banner].status;
+        if (banner === "") return;
+        // const status = BannerType[banner].status;
+        const status = BannerCategory.NORMAL ;
         var item = "";
         const rand = Math.random();
         
@@ -179,11 +205,13 @@ function Gatcha({ BackToMenu }) {
 
         const skin = Object.keys(chessSkins).find((key) => {
             const temp = chessSkins[key];
-            return temp.type === type && temp.set === "Mafia" && temp.grade === grade;
+            return temp.type === type && temp.set === "Mafia" && temp.grade === "normal";
         });
 
+        console.log(set, type, grade, skin);
+
         setSkinRolled(skin);
-        // set credit
+        setCreditAmount(creditAmount - (status === BannerCategory.NORMAL ? NORMAL_BANNER_COST : PRESTIGE_BANNER_COST));
     }
 
 
