@@ -29,6 +29,25 @@ function Login({ auth_engine, DidLogIn, BackToMenu }) {
     setButtonStatus("exit");
   }
 
+  function login() {
+    auth_engine
+      .LogInWithEmailAndPassword(email, password)
+      .then((id) => {
+        DidLogIn(id);
+      })
+      .catch((error) => {
+        console.log(error);
+        switch (error.message) {
+          case "invalid credentials":
+            alert("invalid credentials");
+            break;
+          default:
+            alert("something went wrong");
+            break;
+        }
+      });
+  }
+
   function ToMenu() {
     console.log(email);
     console.log(password);
@@ -42,7 +61,7 @@ function Login({ auth_engine, DidLogIn, BackToMenu }) {
   function ToModeSelection() {
     TransitionOut();
     const exitTimer = setTimeout(() => {
-      DidLogIn();
+      login();
       clearTimeout(exitTimer);
     }, 550);
   }
