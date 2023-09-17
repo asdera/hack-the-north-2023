@@ -59,7 +59,8 @@ const StripeCheckoutForm = ({ amount, price, BuyCredits }) => {
 
     console.log("You have purchased credits", currentUser?.id, amount);
     if (currentUser?.id) {
-      updateCredits(
+      console.log("Updating credits for user", currentUser?.id);
+      updateNuggets(
         currentUser.id,
         currentUser?.nuggetCount,
         amount || 100,
@@ -133,19 +134,16 @@ async function requestMoney(amount, requesteeId, message, invoiceNumber) {
 
 const stripePromise = loadStripe(stripe_test_pk);
 
-async function updateCredits(
-  userId,
-  currentCredits,
-  newCredits,
-  newNuggetCount
-) {
+async function updateNuggets(userId, curNugs, addNugs, newNuggetCount) {
   const userRef = doc(firestore, "users", userId);
 
   console.log(`Updating credits for user ${userId}`, userRef);
   await updateDoc(userRef, {
-    credits: currentCredits + newCredits,
+    nuggetCount: curNugs + addNugs,
+  }).catch((error) => {
+    console.error("Error updating document: ", error);
   });
-  newNuggetCount && newNuggetCount(currentCredits + newCredits);
+  newNuggetCount && newNuggetCount(curNugs + addNugs);
 
   console.log(`Credits updated for user ${userId}`);
 }
@@ -235,28 +233,28 @@ function Purchase() {
             className={`CreditOption ${credits === 50 ? "selected" : ""}`}
             onClick={() => setCredits(50)}
           >
-            50 Credits - $4.99
+            50 Coins - $4.99
             <img src={Knug} alt="Knug" className="Knug" />
           </div>
           <div
             className={`CreditOption ${credits === 125 ? "selected" : ""}`}
             onClick={() => setCredits(125)}
           >
-            125 Credits - $9.99
+            125 Coins - $9.99
             <img src={Knug} alt="Knug" className="Knug" />
           </div>
           <div
             className={`CreditOption ${credits === 300 ? "selected" : ""}`}
             onClick={() => setCredits(300)}
           >
-            300 Credits - $19.99
+            300 Coins - $19.99
             <img src={Knug} alt="Knug" className="Knug" />
           </div>
           <div
             className={`CreditOption ${credits === 800 ? "selected" : ""}`}
             onClick={() => setCredits(800)}
           >
-            800 Credits - $39.99
+            800 Coins - $39.99
             <img src={Knug} alt="Knug" className="Knug" />
           </div>
         </motion.div>
