@@ -6,6 +6,7 @@ import Login from "./Login.js";
 import Mode from "./Mode.js";
 import Customize from "./Customization.js";
 import Register from "./Register.js";
+import Gatcha from "./Gatcha";
 import Purchase from "./Purchase";
 import GameOrganizerEngine from "./GameOrganizerEngine";
 import { useAuth } from "./AuthContext";
@@ -45,6 +46,8 @@ function App() {
         );
       case "menu":
         return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
+      case "gatcha":
+        return <Gatcha BackToMenu={BackToMenu}/>;
       case "main":
         return (
           <MainMenu

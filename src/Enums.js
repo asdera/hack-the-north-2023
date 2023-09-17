@@ -15,4 +15,10 @@ export const Pieces = {
     TILE: 'tile'
 };
 
+export const BannerCategory = {
+    PRESTIGE: 'prestige',
+    NORMAL: 'normal'
+}
+
+
 export default Pieces
