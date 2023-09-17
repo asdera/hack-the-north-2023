@@ -73,6 +73,7 @@ function Purchase() {
   const [buyButtonStatus, setBuyButtonStatus] = useState("enter");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [credits, setCredits] = useState(100);
 
   //   const [name, setName] = useState("");
   //   const [email, setEmail] = useState("");
@@ -91,7 +92,7 @@ function Purchase() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const requestData = await requestMoney(
-      "100",
+      `${credits}`,
       clientData.id,
       "Buying 100 credits",
       `Invoice${Math.floor(Math.random() * 100000000)}}`
@@ -144,9 +145,25 @@ function Purchase() {
               if (creditsListStatus === "enter") setCreditsListStatus("final");
             }}
           >
-            <div className="CreditOption">100 Credits - $5</div>
-            <div className="CreditOption">250 Credits - $10</div>
-            <div className="CreditOption">500 Credits - $20</div>
+            {/* Updated CreditOption divs */}
+            <div
+              className={`CreditOption ${credits === 100 ? "selected" : ""}`}
+              onClick={() => setCredits(100)}
+            >
+              100 Credits - $5
+            </div>
+            <div
+              className={`CreditOption ${credits === 250 ? "selected" : ""}`}
+              onClick={() => setCredits(250)}
+            >
+              250 Credits - $10
+            </div>
+            <div
+              className={`CreditOption ${credits === 500 ? "selected" : ""}`}
+              onClick={() => setCredits(500)}
+            >
+              500 Credits - $20
+            </div>
           </motion.div>
 
           {/* Name and email input */}
