@@ -229,14 +229,14 @@ function CustomPiece(props) {
 
 function getLayout1() {
     return {
-        "pawn1": "Soilder",
-        "pawn2": "Soilder",
-        "pawn3": "Soilder",
-        "pawn4": "Debt Collector",
-        "pawn5": "Soilder",
-        "pawn6": "Soilder",
-        "pawn7": "Soilder",
-        "pawn8": "Soilder",
+        "pawn1": "Soldier",
+        "pawn2": "Soldier",
+        "pawn3": "Soldier",
+        "pawn4": "Soldier",
+        "pawn5": "Soldier",
+        "pawn6": "Soldier",
+        "pawn7": "Soldier",
+        "pawn8": "Soldier",
     
         "rook1": "Sailor", 
         "rook2": "Sailor", 
@@ -326,7 +326,7 @@ function Customize({backToMainMenu}) {
 
     // Dummy data: Replace with your own image URLs
     const defaultChessSkins = [
-        {name: 'Soilder', count: -100}, 
+        {name: 'Soldier', count: -100}, 
         {name: 'Sailor', count: -100}, 
         {name: 'Cavalry', count: -100}, 
         {name: 'Medic', count: -100}, 
@@ -495,7 +495,6 @@ function Customize({backToMainMenu}) {
                         onClick={() => {
                             setHidePieces(!hidePieces)
                             setSelectedCell(-1)
-                            setSelectedSide(Colors.BLACK)
                             setSelectedSkin('')
                         }}>{hidePieces ? 'Edit Cells' : 'Edit Pieces'}
                     </motion.div>

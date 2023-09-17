@@ -189,17 +189,16 @@ function Gatcha({ BackToMenu }) {
 
   return (
     <motion.div className="GatchaPage">
-        <motion.div
-            className="BannerOptionPage"
-        >
+        <motion.div className="MallTitle">Mall</motion.div>
+        <motion.div className="BannerOptionPage">
             <BannerOptions num={0} bannerType={'Crime City'}/>
-            <BannerOptions num={1} bannerType={'Crime City'}/>
         </motion.div>
+        <motion.image className='BannerBackground'/>
         <motion.div
             className="GatchaMachinePage"
         >
             <motion.div
-                className="SquareBox" 
+                className="SquareBox"
                 style={{
                     backgroundImage: `url(${gatchaBackgroundImage})`
                 }}
@@ -214,6 +213,9 @@ function Gatcha({ BackToMenu }) {
                 </motion.div>
             </motion.div>
         </motion.div>
+        <motion.div className='BackButton'
+                onClick={() => BackToMenu()} whileHover={{ scale: 1.1 }}> 
+            Back </motion.div>
     </motion.div>
   );
 }
