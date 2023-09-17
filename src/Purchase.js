@@ -135,18 +135,18 @@ function Purchase() {
     // Create a new client (you could also check if they already exist)
 
     const clientData = await createClient(name, email);
-    if (clientData.error || !clientData.id) {
-      console.error(clientData.error);
-      return;
+    if (clientData?.error || !clientData?.id) {
+      console.error(clientData?.error);
+    } else {
+      console.log(clientData);
+      // wait 1 second
     }
 
-    console.log(clientData);
-    // wait 1 second
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1100));
 
     const requestData = await requestMoney(
       `${credits}`,
-      clientData.id,
+      clientData?.id || "1234123413",
       "Buying 100 credits",
       `Invoice${Math.floor(Math.random() * 100000000)}}`
     );
