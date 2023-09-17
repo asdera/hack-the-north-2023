@@ -55,6 +55,7 @@ export const topAnimation = {
         y: '-250%'
     },
     enter: {
+        opacity: 1, 
         y: 0, 
         transition: {
             duration: 0.5,

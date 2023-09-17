@@ -15,7 +15,7 @@ import {
 /*
 This is the unlogged in menu
 */
-function MainMenu({ LogOut, SelectMode, ToCustomize }) {
+function MainMenu({ LogOut, SelectMode, ToCustomize, ToGatcha }) {
   // component animation fields
   const [fadeStatus, setFadeStatus] = useState("enter");
   const [titleStatus, setTitleStatus] = useState("enter");
@@ -49,6 +49,14 @@ function MainMenu({ LogOut, SelectMode, ToCustomize }) {
     TransitionOut();
     const exitTimer = setTimeout(() => {
       ToCustomize();
+      clearTimeout(exitTimer);
+    }, 550);
+  }
+
+  function BeginGatchaMode() {
+    TransitionOut();
+    const exitTimer = setTimeout(() => {
+      ToGatcha();
       clearTimeout(exitTimer);
     }, 550);
   }
@@ -121,7 +129,9 @@ function MainMenu({ LogOut, SelectMode, ToCustomize }) {
 
       <motion.div
         className="Button"
-        onClick={() => {}}
+        onClick={() => {
+          BeginGatchaMode();
+        }}
         whileHover={{ scale: 1.1 }}
         initial={rightAnimation["initial"]}
         animate={rightAnimation[selectButtonStatus]}

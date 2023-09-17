@@ -7,6 +7,7 @@ import Mode from "./Mode.js";
 import Dashboard from "./Dashboard.js";
 import Customize from "./Customization.js";
 import Register from "./Register.js";
+import Gatcha from "./Gatcha";
 import Purchase from "./Purchase";
 import GameOrganizerEngine from "./GameOrganizerEngine";
 import { useAuth } from "./AuthContext";
@@ -46,12 +47,15 @@ function App() {
         );
       case "menu":
         return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
+      case "gatcha":
+        return <Gatcha BackToMenu={BackToMenu}/>;
       case "main":
         return (
           <MainMenu
             LogOut={LogOut}
             SelectMode={SelectMode}
             ToCustomize={ToCustomize}
+            ToGatcha={ToGatcha}
           />
         );
       case "purchase":
@@ -66,9 +70,6 @@ function App() {
         );
       case "customize":
         return <Customize backToMainMenu={BackToMainMenu} />;
-
-      case "register":
-        return <Register />;
 
       default:
         throw Error("Unknown page");
@@ -128,6 +129,10 @@ function App() {
 
   function ToCustomize() {
     setPage("customize");
+  }
+
+  function ToGatcha() {
+    setPage("gatcha");
   }
 
   function ToRegister() {
