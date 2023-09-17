@@ -194,3 +194,79 @@
 .LoginDropdown.open, .RegisterDropdown.open {
     max-height: 200px;
 }
+
+/* Gatcha */
+/* ========================= */
+
+
+.GatchaPage {
+    overflow: hidden;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+}
+
+
+.BannerOptionPage {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 40%;
+    background-color: black;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.BannerOptionButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    text-decoration: underline;
+
+    color: #6B6B6B;
+    border: 2px solid gray;
+    height: 50px;
+    width: 300px;
+    border-radius: 10px; 
+}
+
+.GatchaMachinePage {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 60%;
+    background-color: white;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.GatchaRollButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    text-decoration: underline;
+    color: #6B6B6B;
+    border: 2px solid grey;
+    height: 50px;
+    width: 100px;
+    border-radius: 10px; 
+}
+
+.SquareBox {
+    width: 700px;
+    height: 300px;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid black;
+}

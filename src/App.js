@@ -6,12 +6,13 @@ import Login from "./Login.js";
 import Mode from "./Mode.js";
 import Customize from "./Customization.js";
 import Register from "./Register.js";
+import Gatcha from "./Gatcha";
 
 import { useState, useEffect } from "react";
 import MainMenu from "./MainMenu";
 
 function App() {
-  const [page, setPage] = useState("menu");
+  const [page, setPage] = useState("gatcha");
 
   const [game_mode, setGameMode] = useState(-1);
 
@@ -23,6 +24,8 @@ function App() {
         return <Register DidRegister={DidRegister} BackToMenu={BackToMenu} />;
       case "menu":
         return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
+      case "gatcha":
+        return <Gatcha BackToMenu={BackToMenu}/>;
       case "main":
         return (
           <MainMenu
