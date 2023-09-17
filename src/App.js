@@ -18,7 +18,7 @@ import { useState, useEffect } from "react";
 import MainMenu from "./MainMenu";
 
 function App() {
-  const [page, setPage] = useState("dashboard");
+  const [page, setPage] = useState("menu");
 
   const [game_id, setGameId] = useState("");
   const [user_id, setUserId] = useState("");
@@ -48,7 +48,7 @@ function App() {
       case "menu":
         return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
       case "gatcha":
-        return <Gatcha BackToMenu={BackToMenu}/>;
+        return <Gatcha BackToMenu={BackToMenu} />;
       case "main":
         return (
           <MainMenu
