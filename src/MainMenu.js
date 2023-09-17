@@ -11,6 +11,7 @@ import {
   leftAnimation,
   rightAnimation,
 } from "./animations";
+import { useAuth } from "./AuthContext";
 
 /*
 This is the unlogged in menu
@@ -21,6 +22,8 @@ function MainMenu({ LogOut, SelectMode, ToCustomize, ToGatcha }) {
   const [titleStatus, setTitleStatus] = useState("enter");
   const [profileStatus, setProfileStatus] = useState("enter");
   const [selectButtonStatus, setSelectButtonStatus] = useState("enter");
+
+  const { currentUser } = useAuth();
 
   function TransitionOut() {
     setFadeStatus("exit");
@@ -61,6 +64,8 @@ function MainMenu({ LogOut, SelectMode, ToCustomize, ToGatcha }) {
     }, 550);
   }
 
+  console.log("HELLO", currentUser);
+
   return (
     <motion.div
       className="Menu"
@@ -99,7 +104,7 @@ function MainMenu({ LogOut, SelectMode, ToCustomize, ToGatcha }) {
           ></img>
         </div>
         <div className="Info">
-          <div className="Username">ACCountNine38</div>
+          <div className="Username">{currentUser?.username}</div>
           <div className="TextSmall">Scrubby</div>
           <div className="TextSmall">
             <motion.span
