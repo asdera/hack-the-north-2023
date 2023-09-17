@@ -11,6 +11,7 @@ import Gatcha from "./Gatcha";
 import Purchase from "./Purchase";
 import GameOrganizerEngine from "./GameOrganizerEngine";
 import { useAuth } from "./AuthContext";
+import Knug from "./images/icons/knug.png";
 
 import "./CreateFirebaseEngine";
 
@@ -153,19 +154,65 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ position: "fixed", top: 8, right: 8, width: "200px" }}>
-        {/* NAV BAR FOR TESTING */}
-        <button onClick={TestLogin}>Test Login</button>
-        <button onClick={LogOut}>Log Out</button>
-        <button onClick={ToLogin}>To Login</button>
-        <button onClick={ToRegister}>To Register</button>
-        <button onClick={ToCustomize}>To Customize</button>
-        <button onClick={ToGatcha}>To Gatcha</button>
-        <button onClick={SelectMode}>Select Mode</button>
-        <button onClick={BackToMenu}>Back To Menu</button>
-        <button onClick={BackToMainMenu}>Back To Main Menu</button>
-        <button onClick={() => setPage("dashboard")}>To Dashboard</button>
-        <button onClick={() => setPage("purchase")}>To Purchase</button>
+      <div
+        style={{
+          position: "fixed",
+          top: 16,
+          right: 16,
+          width: "200px",
+          height: "100px",
+        }}
+      >
+        {currentUser && (
+          <>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+
+                color: "#6e6e6e",
+                fontSize: "32px",
+                fontWeight: "bold",
+              }}
+            >
+              {currentUser.nuggetCount}
+              <img
+                src={Knug}
+                style={{ marginLeft: 10, width: "30%", height: "60%" }}
+              />
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "#6e6e6e",
+                fontWeight: "bold",
+              }}
+            >
+              {page !== "purchase" ? (
+                <button
+                  className="BuyButton"
+                  style={{ fontSize: "16px" }}
+                  onClick={() => setPage("purchase")}
+                >
+                  Purchase More
+                </button>
+              ) : (
+                <button
+                  className="BuyButton"
+                  style={{ fontSize: "16px" }}
+                  onClick={() => setPage("main")}
+                >
+                  Go back
+                </button>
+              )}
+            </div>
+          </>
+        )}
       </div>
       {GetPage()}
     </div>
