@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
         .then((docSnap) => {
           if (docSnap.exists()) {
             console.log("User data:", docSnap.data());
-            setCurrentUser(docSnap.data());
+            setCurrentUser({...docSnap.data(), id: currentId});
           } else {
             console.log("No such user!");
           }

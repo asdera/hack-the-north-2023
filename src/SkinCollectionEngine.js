@@ -1,29 +1,27 @@
-import {firestore, updateGameCustomizations} from "./CreateFirebaseEngine";
+import {firestore, updateSkinCollection} from "./CreateFirebaseEngine";
 import {doc, onSnapshot} from "firebase/firestore";
 
 // TODO: Use builder pattern and move this constant to shared file
 const USERS_PATH = "users";
 
-class GameCustomizationEngine {
+class SkinCollectionEngine {
 
     #user_id;
     #unsub;
-    constructor(user_id, game_customizations_did_update) {
+    constructor(user_id, skin_collection_did_update) {
         this.#user_id = user_id;
-        alert(user_id);
-        this.#unsub = onSnapshot(doc(firestore, USERS_PATH + "/" + user_id + "/customizations/game"), (doc) => {
+
+        this.#unsub = onSnapshot(doc(firestore, USERS_PATH + "/" + user_id + "/loot/skins"), (doc) => {
             if (doc.exists) {
-                const data = doc.data();
-                game_customizations_did_update(data["pieces"], data["tiles"]);
+                skin_collection_did_update(doc.data());
             }
         });
     }
 
-    async updateGameCustomizations(pieces, tiles){
+    async addSkinToCollection(skin){
         try {
-            await updateGameCustomizations({
-                pieces: pieces,
-                tiles: tiles,
+            await updateSkinCollection({
+                skin: skin,
             })
         } catch (error) {
             switch (error.code) {
@@ -41,4 +39,4 @@ class GameCustomizationEngine {
 
 }
 
-export default GameCustomizationEngine;
+export default SkinCollectionEngine;

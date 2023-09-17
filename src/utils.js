@@ -162,4 +162,69 @@ export function generateKnifeFightDefaultPrompt(opponentColor, type, oldPos, new
     return `Assume you are a chess bot with color ${opponentColor} and I am ${opponentColor === 'black' ? 'white' : 'black'}. The chess board starts with proper chess positions. Only respond in the format of 'type' 'old position' 'new position' and nothing else, for example pawn A2 A3, which means pawn at A2 move to A3. I go first. ${generateKnifeFightMove(type, oldPos, newPos)}`
 }
 
+export function getLayout1() {
+    return {
+        "pawn1": "Soldier",
+        "pawn2": "Soldier",
+        "pawn3": "Soldier",
+        "pawn4": "Soldier",
+        "pawn5": "Soldier",
+        "pawn6": "Soldier",
+        "pawn7": "Soldier",
+        "pawn8": "Soldier",
+    
+        "rook1": "Sailor", 
+        "rook2": "Sailor", 
+        
+        "knight1": "Cavalry",
+        "knight2": "Cavalry",  
+    
+        "bishop1": "Medic",
+        "bishop2": "Medic",
+    
+        "queen": "The Lieutenant",
+        "king": "The General",
+    }
+}
+
+export function getLayoutTiles1() {
+    return {
+        "0": "Default Tile",
+        "1": "Default Tile",
+        "2": "Default Tile",
+        "3": "Default Tile",
+        "4": "Default Tile",
+        "5": "Default Tile",
+        "6": "Default Tile",
+        "7": "Default Tile",
+        
+        "8": "Default Tile",
+        "9": "Default Tile",
+        "10": "Default Tile",
+        "11": "Default Tile",
+        "12": "Default Tile",
+        "13": "Default Tile",
+        "14": "Default Tile",
+        "15": "Default Tile",
+
+        "16": "Default Tile",
+        "17": "Default Tile",
+        "18": "Default Tile",
+        "19": "Default Tile",
+        "20": "Default Tile",
+        "21": "Default Tile",
+        "22": "Default Tile",
+        "23": "Default Tile",
+
+        "24": "Default Tile",
+        "25": "Default Tile",
+        "26": "Default Tile",
+        "27": "Default Tile",
+        "28": "Default Tile",
+        "29": "Default Tile",
+        "30": "Default Tile",
+        "31": "Default Tile",
+    }
+}
+
 export default PosToCoord

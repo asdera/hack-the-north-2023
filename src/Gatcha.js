@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import chessSkins from "./Appendix.js";
 import { BannerCategory , Pieces} from "./Enums";
 import images from "./images";
+import SkinCollectionEngine from './SkinCollectionEngine'
+import { useAuth } from './AuthContext';
+
 
 import {
   fadeAnimation,
@@ -14,7 +17,6 @@ import {
 } from "./animations";
 import { firestore } from "./CreateFirebaseEngine";
 import { doc, getDoc, updateDoc} from "firebase/firestore";
-import { useAuth } from "./AuthContext";
 
 const dropRates = {
     Prestige: {
@@ -116,6 +118,7 @@ const banners = ['Crime City', 'Crime City'];
   
 function Gatcha({ BackToMenu }) {
     const user = useAuth();
+    console.log(user);
     // component animation fields
     const [creditAmount, setCreditAmount] = useState(0);
 
@@ -123,29 +126,25 @@ function Gatcha({ BackToMenu }) {
     const [gatchaBackgroundImage, setGatchaBackgroundImage] = useState("../images/banners/banner1.png");
     const [skinRolled, setSkinRolled] = useState("");
 
+    // saving the skins
+    const [skinCollectionEngine, setSkinCollectionEngine] = useState(null)
+    useEffect(() => {
+        setSkinCollectionEngine(new SkinCollectionEngine(user.id, (skinCollection) => {
+
+        }));
+    }, [])
+
     useEffect(() => {
         // console.log(skinRolled)
     }, [skinRolled])
 
     useEffect(() => {
-        const docRef = doc(firestore, "users", user.currentUser);
-        getDoc(docRef)
-          .then((docSnap) => {
-            if (docSnap.exists()) {
-              const data = docSnap.data();
-              setCreditAmount(data["nuggetCount"]);
-            //   setCreditAmount(110);
-            } else {
-              console.log("No such user!");
-            }
-          })
-          .catch((error) => {
-            console.log("Error getting user:", error);
-          });
+        setCreditAmount(user.currentUser.nuggetCount);
+        // setCreditAmount(110);
     }, []);
 
     useEffect(() => {
-        const docRef = doc(firestore, "users", user.currentUser);
+        const docRef = doc(firestore, "users", user.currentUser.id);
         const dataToUpdate = {
             nuggetCount: creditAmount,
         };
@@ -153,6 +152,7 @@ function Gatcha({ BackToMenu }) {
         .catch((error) => {
             console.error("Error updating document: ", error);
         });
+        console.log(creditAmount);
     }, [creditAmount]);
 
     useEffect(() => {
@@ -209,7 +209,7 @@ function Gatcha({ BackToMenu }) {
             return temp.type === type && temp.set === "Mafia" && temp.grade === "normal";
         });
 
-        console.log(set, type, grade, skin);
+        
 
         setSkinRolled(skin);
         setCreditAmount(creditAmount - (status === BannerCategory.NORMAL ? NORMAL_BANNER_COST : PRESTIGE_BANNER_COST));
@@ -224,7 +224,7 @@ function Gatcha({ BackToMenu }) {
         </motion.div>
         <motion.image className='BannerBackground'/>
         <motion.div className="GatchaMachinePage">
-            <motion.img className="GatchaMachine" src={images.gatchaMachine} />
+            {/* <motion.img className="GatchaMachine" src={images.gatchaMachine} /> */}
             <motion.div
                 className="GatchaRollButton"
                 onClick= {() => {

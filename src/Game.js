@@ -10,6 +10,8 @@ import { PosToCoord, CoordToPos, UpdateShootingStatus, shuffle,
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Game as ChessGame } from 'js-chess-engine'
+import { getLayout1, getLayoutTiles1 } from './utils.js'
+import { useAuth } from './AuthContext';
 
 // when switched to black / white, board will rotate
 export var MY_COLOR = "white"
@@ -162,7 +164,21 @@ function Game({game_id, user_id, game_mode}) {
     // mouse position update
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [canUpdateMouse, setCanUpdateMouse] = useState(true)
+
+    // get the user loadouts
+    // const { currentUser, didLogIn, didRegister, logOut, authEngine } = useAuth();
+    // const [ gameCustomizationEngine, setGameCustomizationEngine ] = useState(null)
+    // const [ myLayout, setMyKayout ] = useState(getLayout1())
+    // useEffect(() => {
+    //     setGameCustomizationEngine(new GameCustomizationEngine(currentUser, (layout1, layoutTiles1) => {
+    //         setMyKayout(layout1)
+    //     }));
+    // }, [])
     
+    // useEffect(() => {
+    //     console.log()
+    // }, [myLayout])
+
     const handleMouseMove = (event) => {
         if (phase === 'init' || !canUpdateMouse) return
         const { clientX, clientY } = event;
@@ -196,7 +212,7 @@ function Game({game_id, user_id, game_mode}) {
             {type:'queen', image: images.black_queen}
         ]
     }
-    
+
     // **************************************
     // helper function for chess pieces
     // **************************************
