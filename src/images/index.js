@@ -10,7 +10,8 @@ const images = {
     // tiles
     black_brick_tile: require('./tiles/brick_black_tile.png'),
     white_brick_tile: require('./tiles/brick_white_tile.png'),
-
+    default_tile: require('./tiles/default_tile.png'),
+    
     // default skin set
     white_king: require('./white_pieces/default/white_king_default.png'),
     white_queen: require('./white_pieces/default/white_queen_default.png'),

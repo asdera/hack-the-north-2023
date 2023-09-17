@@ -19,7 +19,7 @@ const chessSkins = {
     'The Boss': {type: Pieces.KING, set: "Mafia", whiteImage: images.white_king_mafia, blackImage: images.black_king_mafia, grade: "normal", whiteIcon: images.white_king_mafia_icon, blackIcon: images.black_king_mafia_icon},
 
     // tiles
-    'Default Tile': {type: Pieces.TILE, set: "Default", whiteImage: images.white_brick_tile, blackImage: images.black_brick_tile, grade: "normal", whiteIcon: images.black_brick_tile, blackIcon: images.black_brick_tile},
+    'Default Tile': {type: Pieces.TILE, set: "Default", whiteImage: images.default_tile, blackImage: images.default_tile, grade: "normal", whiteIcon: images.default_tile, blackIcon: images.default_tile},
     'Brick Tile': {type: Pieces.TILE, set: "Mafia", whiteImage: images.white_brick_tile, blackImage: images.black_brick_tile, grade: "normal", whiteIcon: images.black_brick_tile, blackIcon: images.black_brick_tile},
 }
 

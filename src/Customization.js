@@ -1,7 +1,7 @@
 import './Customization.css';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import Pieces, { Colors } from './Enums.js'
+import { Colors } from './Enums.js'
 import chessSkins from './Appendix.js'
 
 import { fadeAnimation, topAnimation, bottomAnimation, leftAnimation } from './animations';
@@ -382,7 +382,7 @@ function Customize({backToMainMenu}) {
                 break;
             }
         }
-        setAllSkins([...allTiles]);
+        setAllTiles([...allTiles]);
     };
 
     const increaseTileCount = (name) => {
@@ -392,7 +392,7 @@ function Customize({backToMainMenu}) {
                 break;
             }
         }
-        setAllSkins([...allTiles]);
+        setAllTiles([...allTiles]);
     };
 
     // current pieces on the board
@@ -495,6 +495,7 @@ function Customize({backToMainMenu}) {
                         onClick={() => {
                             setHidePieces(!hidePieces)
                             setSelectedCell(-1)
+                            setSelectedSide(Colors.BLACK)
                             setSelectedSkin('')
                         }}>{hidePieces ? 'Edit Cells' : 'Edit Pieces'}
                     </motion.div>
