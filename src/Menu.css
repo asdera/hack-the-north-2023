@@ -213,6 +213,9 @@
 .MallTitle {
     position: absolute;
     top: 5vh;
+    width: 120vh;
+    height: 50vh;
+    left: 115vh;
     font-size: 8vh;
     font-family: 'Inter', sans-serif;
     font-weight: 300;
@@ -223,10 +226,10 @@
 .BannerBackground {
     position: absolute;
 
-    width: 62.5vw;
+    width: 120vh;
     height: 50vh;
     top: 20vh;
-    left: 32.5vw;
+    left: 100vh;
 
     background-color: black;
     border-radius: 10px; 
@@ -234,10 +237,10 @@
 
 .GatchaMachine {
     position: absolute;
-    top: 20vh;
-    left: 5vh;
-    width: 45vw;
-    height: 65vh;
+    top: 10vh;
+    left: 0vh;
+    width: 40vh;
+    height: 45vh;
 
     overflow: hidden;
     display: flex;
@@ -251,13 +254,11 @@
     position: absolute;
     top: 20vh;
     left: 5vh;
-    width: 27.5vw;
+    width: 100vh;
     height: 50vh;
-
     overflow: hidden;
     display: flex;
     flex-direction: column;
-
     align-items: center;
     justify-content: top;
 }
@@ -273,14 +274,16 @@
     color: #6B6B6B;
     border: 3px solid gray;
     height: 10vh;
-    width: 95%;
+    width: 50vh;
+    left: 30vh;
+    top: 70vh;
     border-radius: 10px;
 }
 
 .GatchaMachinePage {
     position: absolute;
 
-    left: 70vw;
+    left: 170vh;
     top: 45vh;
     height: 45vh;
     width: 40vh;
@@ -308,9 +311,9 @@
 }
 
 .SquareBox {
-    width: 700px;
-    height: 300px;
+    width: 700vh;
+    height: 300vh;
     background-color: transparent;
-    border-radius: 10px;
+    border-radius: 10vh;
     border: 2px solid black;
 }

@@ -223,12 +223,8 @@ function Gatcha({ BackToMenu }) {
             <BannerOptions num={0} bannerType={'Crime City'}/>
         </motion.div>
         <motion.image className='BannerBackground'/>
-        <motion.img className="GatchaMachine" src={images.gatchaMachine}>
-            
-        </motion.img>
-        <motion.div
-            className="GatchaMachinePage"
-        >
+        <motion.div className="GatchaMachinePage">
+            <motion.img className="GatchaMachine" src={images.gatchaMachine} />
             <motion.div
                 className="GatchaRollButton"
                 onClick= {() => {
@@ -238,9 +234,11 @@ function Gatcha({ BackToMenu }) {
                 click
             </motion.div>
         </motion.div>
+        
         <motion.div className='BackButton'
                 onClick={() => BackToMenu()} whileHover={{ scale: 1.1 }}> 
-            Back </motion.div>
+            Back 
+        </motion.div>
     </motion.div>
   );
 }
