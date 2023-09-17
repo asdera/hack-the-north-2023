@@ -12,16 +12,19 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [currentId, setCurrentId] = useState(null);
+
   const authEngine = CreateAuthEngine();
 
   useEffect(() => {
-    if (currentUser) {
-      const docRef = doc(firestore, "users", currentUser);
+    if (currentId) {
+      const docRef = doc(firestore, "users", currentId);
 
       getDoc(docRef)
         .then((docSnap) => {
           if (docSnap.exists()) {
             console.log("User data:", docSnap.data());
+            setCurrentUser(docSnap.data());
           } else {
             console.log("No such user!");
           }
@@ -30,16 +33,16 @@ export function AuthProvider({ children }) {
           console.log("Error getting user:", error);
         });
     }
-  }, [currentUser]);
+  }, [currentId]);
 
   const didLogIn = (userId) => {
-    setCurrentUser(userId);
+    setCurrentId(userId);
     // Additional logic for when a user logs in
   };
 
   const didRegister = (id) => {
     if (id) {
-      setCurrentUser(id);
+      setCurrentId(id);
       // Additional logic for when a user registers
     }
   };
