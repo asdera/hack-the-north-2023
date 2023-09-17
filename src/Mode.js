@@ -29,7 +29,6 @@ const categories = {
     gamemode: -2,
   },
 };
-
 const modes = {
   CompetitiveStandard: {
     title: "Standard",
@@ -96,7 +95,6 @@ const modes = {
     gamemode: 0,
   },
 };
-
 const animations = {
   // animation entry
   initial: {
@@ -108,9 +106,7 @@ const animations = {
       ease: "easeIn",
     },
   },
-
   none: {},
-
   // initializd stale animation
   default: {
     opacity: 1,
@@ -121,7 +117,6 @@ const animations = {
       ease: "easeInOut",
     },
   },
-
   // exit animation
   exit: {
     opacity: 0,
@@ -131,7 +126,6 @@ const animations = {
       ease: "easeInOut",
     },
   },
-
   select: {
     opacity: 1,
     scale: 1.05,
@@ -140,7 +134,6 @@ const animations = {
       ease: "easeInOut",
     },
   },
-
   unselect: {
     opacity: 1,
     scale: 1,
@@ -150,7 +143,6 @@ const animations = {
     },
   },
 };
-
 const titleAnimations = {
   initial: {
     y: ["-200%", "0%"],
@@ -159,7 +151,6 @@ const titleAnimations = {
       ease: "easeInOut",
     },
   },
-
   exit: {
     y: "-200%",
     transition: {
@@ -168,7 +159,6 @@ const titleAnimations = {
     },
   },
 };
-
 const backButtonAnimations = {
   initial: {
     y: ["300%", "0%"],
@@ -177,7 +167,6 @@ const backButtonAnimations = {
       ease: "easeInOut",
     },
   },
-
   exit: {
     y: "300%",
     transition: {
@@ -186,7 +175,6 @@ const backButtonAnimations = {
     },
   },
 };
-
 const matchButtonAnimations = {
   initial: {
     y: ["300%", "0%"],
@@ -195,7 +183,6 @@ const matchButtonAnimations = {
       ease: "easeInOut",
     },
   },
-
   exit: {
     y: "300%",
     transition: {
@@ -203,7 +190,6 @@ const matchButtonAnimations = {
       ease: "easeInOut",
     },
   },
-
   enable: {
     y: 0,
     scale: 1.1,
@@ -212,7 +198,6 @@ const matchButtonAnimations = {
       ease: "easeInOut",
     },
   },
-
   reset: {
     y: 0,
     scale: 1,
@@ -222,7 +207,6 @@ const matchButtonAnimations = {
     },
   },
 };
-
 const Category = ({
   info,
   resetCount,
@@ -234,17 +218,14 @@ const Category = ({
   const [isHovered, setIsHovered] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [animation, setAnimation] = useState("initial");
-
   useEffect(() => {
     setAnimation("initial");
   }, [resetCount]);
-
   useEffect(() => {
     if (selectedMode === "none") {
       setAnimation("exit");
     }
   }, [selectedMode]);
-
   useEffect(() => {
     if (selectedGameMode === null) {
       return;
@@ -257,7 +238,6 @@ const Category = ({
       setAnimation("unselect");
     }
   }, [selectedGameMode, info.gamemode, isSelected]);
-
   return (
     <motion.div
       className="Category"
