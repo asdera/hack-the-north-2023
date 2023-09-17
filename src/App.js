@@ -151,7 +151,25 @@ function App() {
     setPage("main");
   }
 
-  return <div className="App">{GetPage()}</div>;
+  return (
+    <div className="App">
+      <div style={{ position: "fixed", top: 8, right: 8, width: "200px" }}>
+        {/* NAV BAR FOR TESTING */}
+        <button onClick={TestLogin}>Test Login</button>
+        <button onClick={LogOut}>Log Out</button>
+        <button onClick={ToLogin}>To Login</button>
+        <button onClick={ToRegister}>To Register</button>
+        <button onClick={ToCustomize}>To Customize</button>
+        <button onClick={ToGatcha}>To Gatcha</button>
+        <button onClick={SelectMode}>Select Mode</button>
+        <button onClick={BackToMenu}>Back To Menu</button>
+        <button onClick={BackToMainMenu}>Back To Main Menu</button>
+        <button onClick={() => setPage("dashboard")}>To Dashboard</button>
+        <button onClick={() => setPage("purchase")}>To Purchase</button>
+      </div>
+      {GetPage()}
+    </div>
+  );
 }
 
 export default App;
