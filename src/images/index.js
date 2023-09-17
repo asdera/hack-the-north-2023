@@ -4,6 +4,7 @@ const images = {
   empty: require("./utils/empty.png"),
   predict: require("./utils/predict.png"),
   pieceShadow: require("./utils/piece_shadow.png"),
+  gatchaMachine: require("./utils/gacha_machine.png"),
 
   defaultIcon: require("./icons/default_icon.png"),
   knugget: require("./icons/knug.png"),

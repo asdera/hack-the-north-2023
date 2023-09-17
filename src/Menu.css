@@ -232,6 +232,21 @@
     border-radius: 10px; 
 }
 
+.GatchaMachine {
+    position: absolute;
+    top: 20vh;
+    left: 5vh;
+    width: 45vw;
+    height: 65vh;
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: top;
+}
+
 .BannerOptionPage {
     position: absolute;
     top: 20vh;
