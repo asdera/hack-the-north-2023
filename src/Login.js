@@ -11,8 +11,8 @@ import {
 } from "./animations";
 
 function Login({ auth_engine, DidLogIn, BackToMenu }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test2@gmail.com");
+  const [password, setPassword] = useState("test2test2");
 
   // component animation fields
   const [fadeStatus, setFadeStatus] = useState("enter");
@@ -90,6 +90,7 @@ function Login({ auth_engine, DidLogIn, BackToMenu }) {
         animate={leftAnimation[usernameStatus]}
         onInput={(e) => setEmail(e.currentTarget.value)}
         placeholder={"Email or Username"}
+        value={email}
         required
       ></motion.input>
       <motion.input
@@ -98,6 +99,7 @@ function Login({ auth_engine, DidLogIn, BackToMenu }) {
         draggable={false}
         whileHover={{ scale: 1.05 }}
         type={"password"}
+        value={password}
         initial={rightAnimation["initial"]}
         animate={rightAnimation[passwordStatus]}
         onInput={(e) => setPassword(e.currentTarget.value)}
