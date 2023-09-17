@@ -40,9 +40,6 @@ function App() {
       case "customize":
         return <Customize backToMainMenu={BackToMainMenu} />;
 
-      case "register":
-        return <Register />;
-
       default:
         throw Error("Unknown page");
     }

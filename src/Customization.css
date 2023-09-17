@@ -23,17 +23,95 @@
     padding-bottom: 1vh;
 }
 
+.TextSmall {
+    font-size: 2.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+
+    display: inline-block;
+    box-sizing: content-box;
+}
+
+.TextTiny {
+    font-size: 2vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+
+    display: inline-block;
+    box-sizing: content-box;
+}
+
 /* MY BOARD */
 /* ========================= */
+
+.BoardContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+  
+.ButtonGroup {
+    position: relative;
+    width: 22.5vh;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    align-items: flex-end;
+}
+
+.CustomizationButton {
+    position: relative;
+    text-align: right; 
+    margin-bottom: 2vh;
+    top: 0;
+    right: 0;
+
+    font-size: 2.5vh;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #6B6B6B;
+
+    display: inline-block;
+    box-sizing: content-box;
+}
+
 .MyBoard {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     width: 70vh;
     height: 35vh;
     border: 5px solid #CBCBCB;
     border-radius: 5px;
+    margin: 3vh;
+    overflow: visible;
+}
 
-    margin: 5vh;
+.DisplayPanel {
+    display: flex;
+    width: 22.5vh;
+    height: 35vh;
+    flex-direction: column;
+}
+
+.DisplayPanelContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 5px solid #CBCBCB;
+    height: 100%
+}
+
+.DisplayedPieceImage {
+    position: relative;
+    width: 100%;
+    top: -1vh;
+    aspect-ratio: 1;
 }
 
 .CustomizationCell {
@@ -63,17 +141,20 @@
 }
   
 ::-webkit-scrollbar-track {
-background: #CBCBCB;
+    background: #CBCBCB;
 }
   
 ::-webkit-scrollbar-thumb {
-background: #888;
+    background: #888;
 }
 
 .SkinImage {
-    height: 95%; 
+    height: 90%; 
     border-radius: 1vh;
-    aspect-ratio: 1;
+    height: 10vh;
+    width: 10vh;
+    margin-top: 0.5vh;
+    margin-left: 0.5vh;
 }
 
 .CustomPiece {

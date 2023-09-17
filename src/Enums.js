@@ -11,7 +11,8 @@ export const Pieces = {
     KNIGHT: 'knight',
     BISHOP: 'bishop',
     QUEEN: 'queen',
-    KING: 'king'
+    KING: 'king',
+    TILE: 'tile'
 };
 
 export default Pieces
