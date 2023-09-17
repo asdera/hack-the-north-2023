@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { Colors } from './Enums.js'
 import chessSkins from './Appendix.js'
+import { getLayout1, getLayoutTiles1 } from './utils.js'
 
 import { fadeAnimation, topAnimation, bottomAnimation, leftAnimation } from './animations';
 import GameCustomizationEngine from './GameCustomizationEngine'
+import SkinCollectionEngine from './SkinCollectionEngine'
 import { useAuth } from './AuthContext';
 
 // alias is for mapping stored layout names
@@ -229,71 +231,6 @@ function CustomPiece(props) {
     )
 }
 
-function getLayout1() {
-    return {
-        "pawn1": "Soldier",
-        "pawn2": "Soldier",
-        "pawn3": "Soldier",
-        "pawn4": "Soldier",
-        "pawn5": "Soldier",
-        "pawn6": "Soldier",
-        "pawn7": "Soldier",
-        "pawn8": "Soldier",
-    
-        "rook1": "Sailor", 
-        "rook2": "Sailor", 
-        
-        "knight1": "Cavalry",
-        "knight2": "Cavalry",  
-    
-        "bishop1": "Medic",
-        "bishop2": "Medic",
-    
-        "queen": "The Lieutenant",
-        "king": "The General",
-    }
-}
-
-function getLayoutTiles1() {
-    return {
-        "0": "Default Tile",
-        "1": "Default Tile",
-        "2": "Default Tile",
-        "3": "Default Tile",
-        "4": "Default Tile",
-        "5": "Default Tile",
-        "6": "Default Tile",
-        "7": "Default Tile",
-        
-        "8": "Default Tile",
-        "9": "Default Tile",
-        "10": "Default Tile",
-        "11": "Default Tile",
-        "12": "Default Tile",
-        "13": "Default Tile",
-        "14": "Default Tile",
-        "15": "Default Tile",
-
-        "16": "Default Tile",
-        "17": "Default Tile",
-        "18": "Default Tile",
-        "19": "Default Tile",
-        "20": "Default Tile",
-        "21": "Default Tile",
-        "22": "Default Tile",
-        "23": "Default Tile",
-
-        "24": "Default Tile",
-        "25": "Default Tile",
-        "26": "Default Tile",
-        "27": "Default Tile",
-        "28": "Default Tile",
-        "29": "Default Tile",
-        "30": "Default Tile",
-        "31": "Default Tile",
-    }
-}
-
 function Customize({backToMainMenu}) {
     // states
     const [selectedSide, setSelectedSide] = useState(Colors.WHITE)
@@ -317,11 +254,15 @@ function Customize({backToMainMenu}) {
     const [gameCustomizationEngine, setGameCustomizationEngine] = useState(null)
 
     useEffect(() => {
-        setGameCustomizationEngine(new GameCustomizationEngine(currentUser, (layout1, layoutTiles1) => {
+        setGameCustomizationEngine(new GameCustomizationEngine(currentUser.id, (layout1, layoutTiles1) => {
             setLayout1(layout1)
             setLayoutTiles1(layoutTiles1)
         }));
     }, [])
+
+    useEffect(() => {
+        console.log(layout1)
+    }, [layout1])
 
     const changePieceSkin = (pieceName, newSkin) => {
         setLayout1(prevLayout => ({
@@ -338,74 +279,60 @@ function Customize({backToMainMenu}) {
     };
 
     // Dummy data: Replace with your own image URLs
-    const defaultChessSkins = [
-        {name: 'Soldier', count: -100}, 
-        {name: 'Sailor', count: -100}, 
-        {name: 'Cavalry', count: -100}, 
-        {name: 'Medic', count: -100}, 
-        {name: 'The Lieutenant', count: -100}, 
-        {name: 'The General', count: -100}, 
-    ]
-    const loadedChessSkins = [
-        {name: 'Debt Collector', count: 5}, 
-        {name: 'The Mistress', count: 1}, 
-        {name: 'The Boss', count: 1}, 
-        {name: 'Body Guard', count: 2},
-        {name: 'Hitman', count: 2},
-        {name: 'Vice', count: 2}];
+    const defaultChessSkins = {
+        'Soldier': -100, 
+        'Sailor': -100, 
+        'Cavalry': -100, 
+        'Medic': -100, 
+        'The Lieutenant': -100, 
+        'The General': -100
+    }
 
-    const defaultChessTiles = [
-        {name: 'Default Tile', count: -100}, 
-    ]
-    const loadedChessTiles = [
-        {name: 'Brick Tile', count: 5}];
+    const [loadedChessSkins, setLoadedChessSkins] = useState({
+        'Debt Collector': 5, 
+        'The Mistress': 1, 
+        'The Boss': 1, 
+        'Body Guard': 2,
+        'Hitman': 2,
+        'Vice': 2
+    })
 
-    const [allSkins, setAllSkins] = useState(defaultChessSkins.concat(loadedChessSkins))
-    const [allTiles, setAllTiles] = useState(defaultChessTiles.concat(loadedChessTiles))
+    // loading the skins
+    const [_, setSkinCollectionEngine] = useState(null)
+    useEffect(() => {
+        setSkinCollectionEngine(new SkinCollectionEngine(currentUser, (skinCollection) => {
+            setLoadedChessSkins(skinCollection)
+        }));
+    }, [])
+
+    const defaultChessTiles = {
+        'Default Tile': -100 
+    }
+    const loadedChessTiles = {
+        'Brick Tile': 5
+    }
+
+    const allSkins = { ...defaultChessSkins, ...loadedChessSkins };
+    const allTiles = { ...defaultChessTiles, ...loadedChessTiles };
 
     const findCount = (name) => {
-        const skin = allSkins.find(s => s.name === name);
-        return skin ? skin.count : 0;
+        return allSkins[name] || 0;
     };
 
     const decreaseCount = (name) => {
-        for (let i = 0; i < allSkins.length; i++) {
-            if (allSkins[i].name === name) {
-                allSkins[i].count = allSkins[i].count - 1;
-                break;
-            }
-        }
-        setAllSkins([...allSkins]);
+        allSkins[name]--
     };
 
     const increaseCount = (name) => {
-        for (let i = 0; i < allSkins.length; i++) {
-            if (allSkins[i].name === name) {
-                allSkins[i].count = allSkins[i].count + 1;
-                break;
-            }
-        }
-        setAllSkins([...allSkins]);
+        allSkins[name]++
     };
 
     const decreaseTileCount = (name) => {
-        for (let i = 0; i < allTiles.length; i++) {
-            if (allTiles[i].name === name) {
-                allTiles[i].count = allTiles[i].count - 1;
-                break;
-            }
-        }
-        setAllTiles([...allTiles]);
+        allTiles[name]--
     };
 
     const increaseTileCount = (name) => {
-        for (let i = 0; i < allTiles.length; i++) {
-            if (allTiles[i].name === name) {
-                allTiles[i].count = allTiles[i].count + 1;
-                break;
-            }
-        }
-        setAllTiles([...allTiles]);
+        allTiles[name]++
     };
 
     // current pieces on the board
@@ -474,15 +401,32 @@ function Customize({backToMainMenu}) {
     }
 
     function filterSkinsByType(skinList, targetType) {
-        return skinList.filter(skin => chessSkins.hasOwnProperty(skin.name) && chessSkins[skin.name].type === targetType);
+        const filteredSkins = {};
+        
+        Object.keys(skinList).forEach(skinName => {
+            if (chessSkins.hasOwnProperty(skinName) && chessSkins[skinName].type === targetType) {
+                filteredSkins[skinName] = skinList[skinName];
+            }
+        });
+        
+        return filteredSkins;
     }
 
     // avaliable skins for the selected piece
     const getSkins = (skins) => {
-        if (hidePieces && selectedCell === -1) return
-        return skins.filter(skin => chessSkins.hasOwnProperty(skin.name)).map((skin, index) => (
-            <Skin key={index} selectedSide={selectedSide} skin={skin} selectSkin={setSelectedSkin} selectedPieceSkinName={getSelectedPieceSkinName()} />
-        ));
+        if (hidePieces && selectedCell === -1) return null;
+    
+        return Object.entries(skins)
+            .filter(([skinName, count]) => chessSkins.hasOwnProperty(skinName))
+            .map(([skinName, count], index) => (
+                <Skin 
+                    key={index} 
+                    selectedSide={selectedSide} 
+                    skin={{ name: skinName, count }} 
+                    selectSkin={setSelectedSkin} 
+                    selectedPieceSkinName={getSelectedPieceSkinName()} 
+                />
+            ));
     };
 
     return (

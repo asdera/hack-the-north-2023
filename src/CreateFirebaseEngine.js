@@ -25,7 +25,7 @@ export const firestore = getFirestore(firebase_app);
 const cloud_functions = getFunctions(firebase_app);
 export const registerUser = httpsCallable(cloud_functions, "registerUser");
 export const queueForMatch = httpsCallable(cloud_functions, "queueForMatch");
-
 export const updateGameCustomizations = httpsCallable(cloud_functions, "updateGameCustomizations");
+export const updateSkinCollection = httpsCallable(cloud_functions, "updateSkinCollection");
 
 export default firebase_app;

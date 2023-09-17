@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import chessSkins from "./Appendix.js";
 import { BannerCategory , Pieces} from "./Enums";
 import images from "./images";
+import SkinCollectionEngine from './SkinCollectionEngine'
+import { useAuth } from './AuthContext';
+
 
 import {
   fadeAnimation,
@@ -14,7 +17,6 @@ import {
 } from "./animations";
 import { firestore } from "./CreateFirebaseEngine";
 import { doc, getDoc, updateDoc} from "firebase/firestore";
-import { useAuth } from "./AuthContext";
 
 const dropRates = {
     Prestige: {
@@ -123,6 +125,14 @@ function Gatcha({ BackToMenu }) {
     const [gatchaBackgroundImage, setGatchaBackgroundImage] = useState("../images/banners/banner1.png");
     const [skinRolled, setSkinRolled] = useState("");
 
+    // saving the skins
+    const [skinCollectionEngine, setSkinCollectionEngine] = useState(null)
+    useEffect(() => {
+        setSkinCollectionEngine(new SkinCollectionEngine(user.id, (skinCollection) => {
+
+        }));
+    }, [])
+
     useEffect(() => {
         // console.log(skinRolled)
     }, [skinRolled])
@@ -209,7 +219,7 @@ function Gatcha({ BackToMenu }) {
             return temp.type === type && temp.set === "Mafia" && temp.grade === "normal";
         });
 
-        console.log(set, type, grade, skin);
+        
 
         setSkinRolled(skin);
         setCreditAmount(creditAmount - (status === BannerCategory.NORMAL ? NORMAL_BANNER_COST : PRESTIGE_BANNER_COST));
