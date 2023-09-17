@@ -2,6 +2,14 @@ import "./Purchase.css";
 import images from "./images";
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Knug from "./images/icons/knug.png";
 
 import {
   scaleAnimation,
@@ -11,9 +19,52 @@ import {
   rightAnimation,
 } from "./animations";
 
+const stripe_test_pk =
+  "pk_test_51Nr9sZBANMvuTab7ViyDgluJsDIth8SxDB9Y7Edn4TtJ0tB8NFISOkjMf6cXnWFggadarkXJwd8WMYzVigrvr3Nh00L7TQLkLS";
+const stripe_test_sk =
+  "sk_test_51Nr9sZBANMvuTab7To2iJyxL2as30oYGcGcsppHdBVFiaYO8x8Sgpp14ekH2wUZSSqtUSGGIsdGJd7UMtl5MaqGM00XAhRaVt7";
+
+const StripeCheckoutForm = ({ price, BuyCredits }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log("[error]", error);
+    } else {
+      // Handle payment here, either by calling your server or something else
+      console.log("[PaymentMethod]", paymentMethod);
+    }
+
+    BuyCredits();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button className="pay-button" type="submit" disabled={!stripe}>
+        Confirm Payment
+      </button>
+    </form>
+  );
+};
+
 const createClient = async (name, email) => {
   try {
-    const response = await fetch("http://localhost:4000/createBankClient", {
+    const response = await fetch("http://localhost:4000/createBankClient/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +113,8 @@ async function requestMoney(amount, requesteeId, message, invoiceNumber) {
   }
 }
 
+const stripePromise = loadStripe(stripe_test_pk);
+
 function Purchase() {
   // The stage we are on, will be set to buyCredits, once animations finish SetPage will be called
   const [stage, setStage] = useState("store");
@@ -73,7 +126,7 @@ function Purchase() {
   const [buyButtonStatus, setBuyButtonStatus] = useState("enter");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [credits, setCredits] = useState(100);
+  const [credits, setCredits] = useState(50);
 
   //   const [name, setName] = useState("");
   //   const [email, setEmail] = useState("");
@@ -97,9 +150,10 @@ function Purchase() {
       "Buying 100 credits",
       `Invoice${Math.floor(Math.random() * 100000000)}}`
     );
+    console.log(requestData);
 
     console.log("You have requested money to buy credits");
-    setStage("purchaseSuccess");
+    setStage("paymentDone");
     setFadeStatus("enter");
   };
 
@@ -110,7 +164,6 @@ function Purchase() {
       setCreditsListStatus("exit");
       setBuyButtonStatus("exit");
       const exitTimer = setTimeout(() => {
-        BuyCredits();
         clearTimeout(exitTimer);
       }, 550);
     }
@@ -122,85 +175,102 @@ function Purchase() {
       initial={fadeAnimation["initial"]}
       animate={fadeAnimation[fadeStatus]}
     >
-      {/* Show success message if stage is "purchaseSuccess" */}
-      {stage === "purchaseSuccess" ? (
-        <div className="SuccessMessage">
-          Congratulations! You have successfully purchased credits.
-        </div>
-      ) : (
-        <>
-          <motion.div
-            className="StoreTitle"
-            initial={topAnimation["initial"]}
-            animate={topAnimation[titleStatus]}
+      {/* Show success message if stage is "paymentDone" */}
+
+      <div style={{ width: "60%" }}>
+        <motion.div
+          className="StoreTitle"
+          initial={topAnimation["initial"]}
+          animate={topAnimation[titleStatus]}
+          style={{ marginLeft: "40px" }}
+        >
+          Buy Credits
+        </motion.div>
+
+        <motion.div
+          className="CreditsList"
+          initial={scaleAnimation["initial"]}
+          animate={scaleAnimation[creditsListStatus]}
+          onAnimationComplete={() => {
+            if (creditsListStatus === "enter") setCreditsListStatus("final");
+          }}
+        >
+          {/* Updated CreditOption divs */}
+          <div
+            className={`CreditOption ${credits === 50 ? "selected" : ""}`}
+            onClick={() => setCredits(50)}
           >
-            Buy Credits
-          </motion.div>
-
-          <motion.div
-            className="CreditsList"
-            initial={scaleAnimation["initial"]}
-            animate={scaleAnimation[creditsListStatus]}
-            onAnimationComplete={() => {
-              if (creditsListStatus === "enter") setCreditsListStatus("final");
-            }}
+            50 Credits - $4.99
+            <img src={Knug} alt="Knug" className="Knug" />
+          </div>
+          <div
+            className={`CreditOption ${credits === 125 ? "selected" : ""}`}
+            onClick={() => setCredits(125)}
           >
-            {/* Updated CreditOption divs */}
-            <div
-              className={`CreditOption ${credits === 100 ? "selected" : ""}`}
-              onClick={() => setCredits(100)}
-            >
-              100 Credits - $5
-            </div>
-            <div
-              className={`CreditOption ${credits === 250 ? "selected" : ""}`}
-              onClick={() => setCredits(250)}
-            >
-              250 Credits - $10
-            </div>
-            <div
-              className={`CreditOption ${credits === 500 ? "selected" : ""}`}
-              onClick={() => setCredits(500)}
-            >
-              500 Credits - $20
-            </div>
-          </motion.div>
-
-          {/* Name and email input */}
-          <motion.input
-            className="InputField"
-            type={"text"}
-            initial={leftAnimation["initial"]}
-            animate={leftAnimation[buyButtonStatus]}
-            value={name}
-            onInput={(e) => setName(e.currentTarget.value)}
-            placeholder={"Name"}
-          ></motion.input>
-          <motion.input
-            className="InputField"
-            type={"text"}
-            initial={rightAnimation["initial"]}
-            animate={rightAnimation[buyButtonStatus]}
-            value={email}
-            onInput={(e) => setEmail(e.currentTarget.value)}
-            placeholder={"Email"}
-          ></motion.input>
-
-          <div style={{ width: "100%", height: "40px" }} />
-
-          <motion.div
-            className="BuyButton"
-            onClick={() => {
-              setStage("buyCredits");
-            }}
-            whileHover={{ scale: 1.1 }}
-            initial={leftAnimation["initial"]}
-            animate={leftAnimation[buyButtonStatus]}
+            125 Credits - $9.99
+            <img src={Knug} alt="Knug" className="Knug" />
+          </div>
+          <div
+            className={`CreditOption ${credits === 300 ? "selected" : ""}`}
+            onClick={() => setCredits(300)}
           >
-            BUY NOW
-          </motion.div>
-        </>
-      )}
+            300 Credits - $19.99
+            <img src={Knug} alt="Knug" className="Knug" />
+          </div>
+          <div
+            className={`CreditOption ${credits === 800 ? "selected" : ""}`}
+            onClick={() => setCredits(800)}
+          >
+            800 Credits - $39.99
+            <img src={Knug} alt="Knug" className="Knug" />
+          </div>
+        </motion.div>
+      </div>
+      <div className="PurchaseSection">
+        {stage !== "paymentDone" ? (
+          <>
+            <motion.input
+              className="InputField"
+              type={"text"}
+              initial={leftAnimation["initial"]}
+              animate={leftAnimation[buyButtonStatus]}
+              value={name}
+              onInput={(e) => setName(e.currentTarget.value)}
+              placeholder={"Name"}
+            ></motion.input>
+            <motion.input
+              className="InputField"
+              type={"text"}
+              initial={rightAnimation["initial"]}
+              animate={rightAnimation[buyButtonStatus]}
+              value={email}
+              onInput={(e) => setEmail(e.currentTarget.value)}
+              placeholder={"Email"}
+            ></motion.input>
+            <Elements stripe={stripePromise}>
+              <StripeCheckoutForm
+                price={
+                  credits === 50
+                    ? 499
+                    : credits === 125
+                    ? 999
+                    : credits === 300
+                    ? 1999
+                    : 3999
+                }
+                BuyCredits={BuyCredits}
+              />
+            </Elements>
+          </>
+        ) : (
+          <div className="SuccessMessage">
+            <div className="SuccessMessageTitle">Success!</div>
+            <div className="SuccessMessageBody">
+              You have successfully purchased {credits} credits!
+            </div>
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 }

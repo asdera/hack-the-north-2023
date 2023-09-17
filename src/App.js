@@ -4,6 +4,7 @@ import Menu from "./Menu.js";
 import Game from "./Game.js";
 import Login from "./Login.js";
 import Mode from "./Mode.js";
+import Dashboard from "./Dashboard.js";
 import Customize from "./Customization.js";
 import Register from "./Register.js";
 import Gatcha from "./Gatcha";
@@ -17,7 +18,7 @@ import { useState, useEffect } from "react";
 import MainMenu from "./MainMenu";
 
 function App() {
-  const [page, setPage] = useState("login");
+  const [page, setPage] = useState("dashboard");
 
   const [game_id, setGameId] = useState("");
   const [user_id, setUserId] = useState("");
@@ -59,6 +60,8 @@ function App() {
         );
       case "purchase":
         return <Purchase setPage={setPage} />;
+      case "dashboard":
+        return <Dashboard setPage={setPage} />;
       case "game":
         return <Game game_mode={game_mode} />;
       case "mode":

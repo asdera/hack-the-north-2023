@@ -5,10 +5,11 @@
   background: #c2c2c2;
 }
 
+/* 2 col grid */
 .Store {
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+
   height: 100%;
   width: 100%;
   background-color: transparent;
@@ -27,24 +28,30 @@
 }
 
 .CreditsList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 4vh;
-  margin-bottom: 4vh;
-  width: 50vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .CreditOption {
   font-size: 3.5vh;
+  position: relative;
+  height: 20vh;
   font-family: "Inter", sans-serif;
   font-weight: 300;
+  margin: 16px;
   text-decoration: underline;
   color: #6b6b6b;
-  margin-bottom: 2vh;
+
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.Knug {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
 }
 
 .CreditOption:hover {
@@ -52,7 +59,16 @@
 }
 
 .CreditOption.selected {
-  background-color: #f0f010; /* Or any other styling you prefer */
+  background-color: #f0f0f0; /* Or any other styling you prefer */
+}
+
+.InputField {
+  font-size: large;
+  margin: 16px;
+}
+
+.BuyButton {
+  margin: 16px;
 }
 
 .BuyButton {
@@ -69,7 +85,7 @@
   color: #4b4b4b;
 }
 
-.SuccessMessage {
+.PurchaseSection {
   font-size: 5vh;
   font-family: "Inter", sans-serif;
   font-weight: 300;
@@ -77,8 +93,32 @@
   text-align: center;
 
   /* Centering the message */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 80%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.PurchaseSection form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.StripeElement {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pay-button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
