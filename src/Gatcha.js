@@ -118,6 +118,7 @@ const banners = ['Crime City', 'Crime City'];
   
 function Gatcha({ BackToMenu }) {
     const user = useAuth();
+    console.log(user);
     // component animation fields
     const [creditAmount, setCreditAmount] = useState(0);
 
@@ -138,24 +139,12 @@ function Gatcha({ BackToMenu }) {
     }, [skinRolled])
 
     useEffect(() => {
-        const docRef = doc(firestore, "users", user.currentUser);
-        getDoc(docRef)
-          .then((docSnap) => {
-            if (docSnap.exists()) {
-              const data = docSnap.data();
-              setCreditAmount(data["nuggetCount"]);
-            //   setCreditAmount(110);
-            } else {
-              console.log("No such user!");
-            }
-          })
-          .catch((error) => {
-            console.log("Error getting user:", error);
-          });
+        setCreditAmount(user.currentUser.nuggetCount);
+        // setCreditAmount(110);
     }, []);
 
     useEffect(() => {
-        const docRef = doc(firestore, "users", user.currentUser);
+        const docRef = doc(firestore, "users", user.currentUser.id);
         const dataToUpdate = {
             nuggetCount: creditAmount,
         };
@@ -163,6 +152,7 @@ function Gatcha({ BackToMenu }) {
         .catch((error) => {
             console.error("Error updating document: ", error);
         });
+        console.log(creditAmount);
     }, [creditAmount]);
 
     useEffect(() => {
@@ -234,7 +224,7 @@ function Gatcha({ BackToMenu }) {
         </motion.div>
         <motion.image className='BannerBackground'/>
         <motion.div className="GatchaMachinePage">
-            <motion.img className="GatchaMachine" src={images.gatchaMachine} />
+            {/* <motion.img className="GatchaMachine" src={images.gatchaMachine} /> */}
             <motion.div
                 className="GatchaRollButton"
                 onClick= {() => {
