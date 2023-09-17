@@ -1,0 +1,84 @@
+/* Store Component */
+/* ========================= */
+
+::selection {
+  background: #c2c2c2;
+}
+
+.Store {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.StoreTitle {
+  font-size: 7.5vh;
+  font-family: "Inter", sans-serif;
+  font-weight: 200;
+  color: #6b6b6b;
+
+  padding-bottom: 1vh;
+}
+
+.CreditsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  width: 50vh;
+}
+
+.CreditOption {
+  font-size: 3.5vh;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  text-decoration: underline;
+  color: #6b6b6b;
+  margin-bottom: 2vh;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.CreditOption:hover {
+  background-color: #f5f5f5;
+}
+
+.CreditOption.selected {
+  background-color: #f0f010; /* Or any other styling you prefer */
+}
+
+.BuyButton {
+  font-size: 3.5vh;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  text-decoration: underline;
+  color: #6b6b6b;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.BuyButton:hover {
+  color: #4b4b4b;
+}
+
+.SuccessMessage {
+  font-size: 5vh;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  color: #4caf50; /* Green color to indicate success */
+  text-align: center;
+
+  /* Centering the message */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

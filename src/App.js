@@ -7,21 +7,43 @@ import Mode from "./Mode.js";
 import Customize from "./Customization.js";
 import Register from "./Register.js";
 import Gatcha from "./Gatcha";
+import Purchase from "./Purchase";
+import GameOrganizerEngine from "./GameOrganizerEngine";
+import { useAuth } from "./AuthContext";
+
+import "./CreateFirebaseEngine";
 
 import { useState, useEffect } from "react";
 import MainMenu from "./MainMenu";
 
 function App() {
-  const [page, setPage] = useState("gatcha");
+  const [page, setPage] = useState("login");
 
+  const [game_id, setGameId] = useState("");
+  const [user_id, setUserId] = useState("");
   const [game_mode, setGameMode] = useState(-1);
+  const { currentUser, didLogIn, didRegister, logOut, authEngine } = useAuth();
+
+  console.log(currentUser);
 
   function GetPage() {
     switch (page) {
       case "login":
-        return <Login DidLogIn={TestLogin} BackToMenu={BackToMenu} />;
+        return (
+          <Login
+            auth_engine={authEngine}
+            DidLogIn={DidLogIn}
+            BackToMenu={BackToMenu}
+          />
+        );
       case "register":
-        return <Register DidRegister={DidRegister} BackToMenu={BackToMenu} />;
+        return (
+          <Register
+            auth_engine={authEngine}
+            DidRegister={DidRegister}
+            BackToMenu={BackToMenu}
+          />
+        );
       case "menu":
         return <Menu ToLogin={ToLogin} ToRegister={ToRegister} />;
       case "gatcha":
@@ -34,6 +56,8 @@ function App() {
             ToCustomize={ToCustomize}
           />
         );
+      case "purchase":
+        return <Purchase setPage={setPage} />;
       case "game":
         return <Game game_mode={game_mode} />;
       case "mode":
@@ -42,9 +66,6 @@ function App() {
         );
       case "customize":
         return <Customize backToMainMenu={BackToMainMenu} />;
-
-      case "register":
-        return <Register />;
 
       default:
         throw Error("Unknown page");
@@ -68,6 +89,18 @@ function App() {
     };
   }, []);
 
+  function DidLogIn(user_id) {
+    didLogIn(user_id);
+    setPage("main");
+    // Existing code ...
+  }
+
+  function DidRegister(id) {
+    didRegister(id);
+    setPage("menu");
+    // Existing code ...
+  }
+
   function TestLogin() {
     // load profile info
     /*
@@ -76,7 +109,7 @@ function App() {
     All the profile icons that this user has
     Amount of Nuggets (currency)
     */
-    console.log("HEys");
+
     setPage("main");
 
     // IgnoreWarningForTesting();
@@ -108,16 +141,6 @@ function App() {
 
   function BackToMainMenu() {
     setPage("main");
-  }
-
-  function DidRegister(id) {
-    setPage("menu");
-    if (id) {
-      alert("registered user with id: " + id);
-      // TODO: go to the user's home screen
-    } else {
-      // login after registration failed. Tell the user to log in again
-    }
   }
 
   return <div className="App">{GetPage()}</div>;
