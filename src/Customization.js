@@ -5,6 +5,8 @@ import { Colors } from './Enums.js'
 import chessSkins from './Appendix.js'
 
 import { fadeAnimation, topAnimation, bottomAnimation, leftAnimation } from './animations';
+import GameCustomizationEngine from './GameCustomizationEngine'
+import { useAuth } from './AuthContext';
 
 // alias is for mapping stored layout names
 const skinToBoardMapping = [
@@ -310,6 +312,17 @@ function Customize({backToMainMenu}) {
     const [layout1, setLayout1] = useState(getLayout1())
     const [layoutTiles1, setLayoutTiles1] = useState(getLayoutTiles1())
 
+    const { currentUser, didLogIn, didRegister, logOut, authEngine } = useAuth();
+
+    const [gameCustomizationEngine, setGameCustomizationEngine] = useState(null)
+
+    useEffect(() => {
+        setGameCustomizationEngine(new GameCustomizationEngine(currentUser, (layout1, layoutTiles1) => {
+            setLayout1(layout1)
+            setLayoutTiles1(layoutTiles1)
+        }));
+    }, [])
+
     const changePieceSkin = (pieceName, newSkin) => {
         setLayout1(prevLayout => ({
             ...prevLayout,
@@ -520,16 +533,27 @@ function Customize({backToMainMenu}) {
                             </div>
                             <motion.div className='TextTiny' style={{textDecoration: "underline", color: layout1[getSelectedPieceAlias()] === selectedSkin ? "#B0B0B0" : "#6B6B6B"}} 
                                 whileHover={{ scale: layout1[getSelectedPieceAlias()] === selectedSkin ? 1 : 1.1 }}
-                                onClick={()=>{
-                                    if (hidePieces) {
-                                        increaseTileCount(layoutTiles1[String(selectedCell)])
-                                        changeTileSkin(selectedCell, selectedSkin)
-                                        decreaseTileCount(layoutTiles1[String(selectedCell)])
-                                    } else if (getSelectedPieceAlias() !== '' && selectedSkin !== '' && findCount(selectedSkin) !== 0) {
-                                        increaseCount(layout1[getSelectedPieceAlias()])
-                                        changePieceSkin(getSelectedPieceAlias(), selectedSkin)
-                                        decreaseCount(selectedSkin)
+                                onClick={async ()=>{
+                                    try {
+                                        const deepCopyTiles = { ...layoutTiles1 };
+                                        const deepCopyPieces = { ...layout1 };
+                                        if (hidePieces) {
+                                            increaseTileCount(layoutTiles1[String(selectedCell)])
+                                            deepCopyTiles[selectedCell] = selectedSkin
+                                            changeTileSkin(selectedCell, selectedSkin)
+                                            decreaseTileCount(layoutTiles1[String(selectedCell)])
+                                        } else if (getSelectedPieceAlias() !== '' && selectedSkin !== '' && findCount(selectedSkin) !== 0) {
+                                            increaseCount(layout1[getSelectedPieceAlias()])
+                                            deepCopyPieces[getSelectedPieceAlias()] = selectedSkin
+                                            changePieceSkin(getSelectedPieceAlias(), selectedSkin)
+                                            decreaseCount(selectedSkin)
+                                        }
+                                        await gameCustomizationEngine.updateGameCustomizations(deepCopyPieces, deepCopyTiles);
+                                    } catch (error) {
+                                        // ... do something
+                                        console.log(error)
                                     }
+
                                 }}>Equip</motion.div>
                         </div>
                     ) : null}

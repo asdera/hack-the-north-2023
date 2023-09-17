@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import chessSkins from "./Appendix.js";
 import { BannerCategory , Pieces} from "./Enums";
+import images from "./images";
 
 import {
   fadeAnimation,
@@ -194,23 +195,19 @@ function Gatcha({ BackToMenu }) {
             <BannerOptions num={0} bannerType={'Crime City'}/>
         </motion.div>
         <motion.image className='BannerBackground'/>
+        <motion.img className="GatchaMachine" src={images.gatchaMachine}>
+            
+        </motion.img>
         <motion.div
             className="GatchaMachinePage"
         >
             <motion.div
-                className="SquareBox"
-                style={{
-                    backgroundImage: `url(${gatchaBackgroundImage})`
+                className="GatchaRollButton"
+                onClick= {() => {
+                    GatchaRoll();
                 }}
             >
-                <motion.div
-                    className="GatchaRollButton"
-                    onClick= {() => {
-                        GatchaRoll();
-                    }}
-                >
-                    click
-                </motion.div>
+                click
             </motion.div>
         </motion.div>
         <motion.div className='BackButton'
