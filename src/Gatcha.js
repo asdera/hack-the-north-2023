@@ -161,6 +161,7 @@ function Gatcha({ BackToMenu }) {
     function BannerOptions(props) {
         return (
             <motion.div
+                whileHover={{ scale: 1.03 }}
                 className="BannerOptionButton"
                 onClick= {() => {
                     setBanner(props.bannerType);
@@ -222,15 +223,16 @@ function Gatcha({ BackToMenu }) {
             <BannerOptions num={0} bannerType={'Crime City'}/>
         </motion.div>
         <motion.image className='BannerBackground'/>
-        <motion.div className="GatchaMachinePage">
+        <motion.div className="GatchaMachine">
             {/* <motion.img className="GatchaMachine" src={images.gatchaMachine} /> */}
             <motion.div
+                whileHover={{ scale: 1.05 }}
                 className="GatchaRollButton"
                 onClick= {() => {
                     GatchaRoll();
                 }}
             >
-                click
+                roll
             </motion.div>
         </motion.div>
         

@@ -215,26 +215,28 @@
     align-items: center;
     top: 5vh;
     height: 50vh;
-    font-size: 8vh;
+    font-size: 7vh;
     font-family: 'Inter', sans-serif;
     font-weight: 300;
     padding-bottom: 72.5vh;
-    color: #6B6B6B;
+    color: grey;
 }
 
 .BannerBackground {
     position: absolute;
 
-    width: 120vh;
-    height: 50vh;
+    width: 100vh;
+    height: 40vh;
     top: 20vh;
-    left: 100vh;
+    left: 70vh;
 
-    background-color: black;
+    background-color: transparent;
     border-radius: 10px; 
+    border: 2px solid black;
+    
 }
 
-.GatchaMachine {
+.GatchaMachinePage {
     position: absolute;
     top: 10vh;
     left: 0vh;
@@ -252,10 +254,10 @@
 .BannerOptionPage {
     position: absolute;
     top: 20vh;
-    left: 5vh;
+    left: 0vh;
     width: 80vh;
     height: 50vh;
-    overflow: hidden;
+    /* overflow: hidden; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -270,19 +272,19 @@
     font-family: 'Inter', sans-serif;
     font-weight: 300;
 
-    color: #6B6B6B;
-    border: 3px solid gray;
-    height: 10vh;
-    width: 50vh;
+    color: black;
+    border: 2px solid black;
+    height: 8vh;
+    width: 40vh;
     /* left: 0vh; */
-    top: 70vh;
+    top: 80vh;
     border-radius: 10px;
 }
 
-.GatchaMachinePage {
+.GatchaMachine {
     position: absolute;
 
-    left: 100vh;
+    left: 120vh;
     top: 45vh;
     height: 45vh;
     width: 40vh;
@@ -290,7 +292,9 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: #d9d9d9;
+    border: 2px solid black;
+    border-radius: 10px;
 
     align-items: center;
     justify-content: center;
@@ -300,17 +304,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 10vh;
     font-size: 3.5vh;
     font-family: 'Inter', sans-serif;
     font-weight: 300;
-    text-decoration: underline;
-    color: #6B6B6B;
-    border: 2px solid grey;
+    color: black;
+    border: 2px solid black;
     border-radius: 10px; 
 }
 
 .SquareBox {
-    width: 700vh;
+    width: 500vh;
     height: 300vh;
     background-color: transparent;
     border-radius: 10vh;
